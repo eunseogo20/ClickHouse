@@ -2,7 +2,7 @@
 machine_translated : true
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd
 toc_priority : 67
-toc_title : "Aarch64\uC6A9Linux\uC5D0\uC11CClickHouse\uC744\uAD6C\uCD95\uD558uB294\uBC29\uBC95(ARM64)"
+toc_title : "Aarch64\uC6A9Linux\uC5D0\uC11CClickHouse\uC744\uAD6C\uCD95\uD558\uB294\uBC29\uBC95(ARM64)"
 ---
 
 # Aarch64 (ARM64) 아키텍처 용 Linux에서 ClickHouse을 구축하는 방법 {# how-to-build-clickhouse-on-linux-for-aarch64-arm64-architecture}
