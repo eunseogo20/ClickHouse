@@ -2,7 +2,7 @@
 machine_translated : true
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd
 toc_priority : 63
-toc_title : "\uC18C\uC2A4\20\uCF54\uB4DC\20\uBE0C\uB77C\uC6B0\uC800"
+toc_title : "\uC18C\uC2A4\uCF54\uB4DC\uBE0C\uB77C\uC6B0\uC800"
 ---
 
 # ClickHouse 소스 코드를 참조 {# browse-clickhouse-source-code}
