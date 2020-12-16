@@ -2,36 +2,36 @@
 
 clickHouse는 진정한 컬럼 지향 DBMS입니다. 데이터는 열별로 저장되며 배열(벡터 또는 열 청크) 실행 중에 저장됩니다. 가능할 때마다 작업은 개별 값이 아닌 배열로 전달됩니다. 이를 “벡터화 된 쿼리 실행”이라고 하며 실제 데이터 처리 비용을 줄이는 데 도움이 됩니다.
 
-> 이 아이디어는 새로운 것이 아닙니다. APL(A programming language, 1957) 및 그 후손 : A+(APL dialect), J(1990), K(1993) 및 Q(Programming language from Kx Systems, 2003)로 거슬러 올라갑니다. 배열 프로그래밍은 과학적 데이터 처리에 사용됩니다. 이 아이디어는 관계형 데이터베이스에서도 새로운 것이 아닙니다. 예를 들어 VetorWise시스템에서 사용됩니다.(Actian Corporation의 Actian Vector Analytic Database라고도 함)
+> 이 아이디어는 새로운 것이 아닙니다. 'APL'(A programming language, 1957) 및 그 후손 : 'A+'(APL dialect), 'J'(1990), 'K'(1993) 및 'Q'(Programming language from Kx Systems, 2003)로 거슬러 올라갑니다. 배열 프로그래밍은 과학적 데이터 처리에 사용됩니다. 이 아이디어는 관계형 데이터베이스에서도 새로운 것이 아닙니다. 예를 들어 'VetorWise'시스템에서 사용됩니다.(Actian Corporation의 Actian Vector Analytic Database라고도 함)
 
-쿼리 처리 속도를 높이기 위한 두 가지 접근 방식이 있습니다. 벡터화 된 쿼리 실행과 런타임 코드 생성입니다. 후자는 모든 간접 및 동적 디스패치를 제거합니다. 이러한 접근 방식 중 어느 것도 다른 접근 방식보다 더 나은 것은 아닙니다. 런타임 코드 생성은 많은 작업을 통합하여 CPU실행 단위와 파이프 라인을 완전히 활용하면 더 좋을 수 있습니다. 벡터화 된 쿼리 실행은 캐시에 쓰고 다시 읽어야하는 임시 벡터를 포함하므로 실용성이 떨어질 수 있습니다. 임시 데이터가 L2 캐시에 맞지 않으면 문제가 됩니다. 그러나 벡터화 된 쿼리 실행은 CPU의 SIMD기능을 보다 쉽게 활용합니다. 우리 친구들이 쓴 연구 논문은 두 가지 접근 방식을 결합하는 것이 더 낫다는 것을 보여줍니다. ClickHouse는 벡터화 된 쿼리 실행을 사용하며 런타임 코드 생성에 대한 초기 지원이 제한됩니다.
+쿼리 처리 속도를 높이기 위한 두 가지 접근 방식이 있습니다. 벡터화 된 쿼리 실행과 런타임 코드 생성입니다. 후자는 모든 간접 및 동적 디스패치를 제거합니다. 이러한 접근 방식 중 어느 것도 다른 접근 방식보다 더 나은 것은 아닙니다. 런타임 코드 생성은 많은 작업을 통합하여 CPU실행 단위와 파이프 라인을 완전히 활용하면 더 좋을 수 있습니다. 벡터화 된 쿼리 실행은 캐시에 쓰고 다시 읽어야하는 임시 벡터를 포함하므로 실용성이 떨어질 수 있습니다. 임시 데이터가 L2 캐시에 맞지 않으면 문제가 됩니다. 그러나 벡터화 된 쿼리 실행은 CPU의 SIMD기능을 보다 쉽게 활용합니다. 우리 친구들이 쓴 [연구 논문](http://15721.courses.cs.cmu.edu/spring2016/papers/p5-sompolski.pdf)은 두 가지 접근 방식을 결합하는 것이 더 낫다는 것을 보여줍니다. ClickHouse는 벡터화 된 쿼리 실행을 사용하며 런타임 코드 생성에 대한 초기 지원이 제한됩니다.
 
 ## 열 {#columns} 
 
-`IColumn`인터페이스는 메모리의 열 (실제로는 열 청크)을 나타내는 데 사용됩니다. 이 인터페이스는 다양한 관계 연산자의 구현을 위한 도우미 메서드를 제공합니다. 거의 모든 작업은 변경할 수 없습니다. 원래 열을 수정하지 않고 새로 수정 된 열을 만듭니다. 예를 들어 `OColumn :: filter` 매서드는 필터 바이트 마스크를 받습니다. 그것은 사용되는 WHERE 및 HAVING 관계 연산자, 추가 예: IColumn :: permute 지원 ORDER BY 하는 IColumn :: cut 방법, 지원 하는 방법 LIMIT.
-다양한 IColumn 구현 (ColumnUInt8, columnString 등) 이 열의 메모리 레이아웃을 담당합니다. 메모리 렝ㅣ아웃은 일반적으로 연속 배열입니다. 정수 유형의 열의 경우 std:: vector. 내용 String 및 Array 모든 배열 요소들에 대한 하나, 연속적으로 배치하고, 각 어레이의 시작 오프셋을 위한 두 번째: 열 두개의 벡터이다. 또한 이 ColumnConst 그 저장 한 메모리에 값하지만 열 것 같습니다.
-## 필드 {#field}
+`IColumn`인터페이스는 메모리의 열 (실제로는 열 청크)을 나타내는 데 사용됩니다. 이 인터페이스는 다양한 관계 연산자의 구현을 위한 도우미 메서드를 제공합니다. 거의 모든 작업은 변경할 수 없습니다. 원래 열을 수정하지 않고 새로 수정 된 열을 만듭니다. 예를 들어 `OColumn :: filter` 매서드는 필터 바이트 마스크를 받습니다. 그것은 사용되는 `WHERE` 및 `HAVING` 관계 연산자, 추가 예: `IColumn :: permute` 지원 `ORDER BY` 하는 `IColumn :: cut` 방법, 지원 하는 방법 `LIMIT`.
+다양한 `IColumn `구현 ('ColumnUInt8, columnString' 등) 이 열의 메모리 레이아웃을 담당합니다. 메모리 레이아웃은 일반적으로 연속 배열입니다. 정수 유형의 열에 경우 `std:: vector`와 같은 하나의 연속 배열입니다. `String` 및 `Array`열의 경우 하나는 연속적으로 배치 된 모든 배열 요소 용이고 다른 하나는 각 배열의 시작 부분에 대한 오프셋 용입니다. 또한 메모리에 하나의 값만 저장하지만 열처럼 보이는 `ColumnConst `가 있습니다.
 
-그럼에도 불구하고 개별 가치로 작업하는 것도 가능합니다. 개별 값을 나타 내기 위해 이 Field사용됩니다. Field 단지 차별 노동 조합니다. UInt64, Int64, Float64, String와 Array. IColumn갖는 Operator[] A와 n의 값을 얻을 수 있는 방법 Field 및 insert를 추가하는 방법은 Field 컬럼의 단부에 있다. 이러한 메서드는 Field개별 값을 나타내는 임시 개체를 처리해야하기 때문에 그다지 효율적이지 않습니다. 같은 보다 효율적인 방법이 있습니다. insertFrom, insertRangeFrom 등이.
-`Field` 테이블의 특정 데이터 형식에 대한 충분한 정보가 없습니다. 예를 들어,`UInt8``UInt16``UInt32`, and`UInt64` 모두로 표시됩니다`UInt64`에서`Field`.
+그럼에도 불구하고 개별 가치로 작업하는 것도 가능합니다. 개별 값을 나타 내기 위해 `Field`가 사용됩니다. `Field`는 `UInt64`, `Int64`, `Float64`, `String`와 `Array`의 구별 된 결합일뿐입니다. `IColumn`에는n 번째 값을 `Field`로 가져오는 `Operator[]`메소드와 `Field`를 열 끝에 추가하는 `insert`메소드가 있습니다. 이러한 메서드는 `Field`개별 값을 나타내는 임시 개체를 처리해야하기 때문에 그다지 효율적이지 않습니다. `insertFrom`, `insertRangeFrom` 등과 같은 보다 효율적인 방법이 있습니다.
+`Field` 테이블의 특정 데이터 형식에 대한 충분한 정보가 없습니다. 예를 들어,`UInt8``UInt16``UInt32`, and`UInt64`는 `Field`에서 `UInt64`로 표시됩니다.
+
 ## 누출 된 추상화 {# leaky-abstractions}
 
-`IColumn` 방법에 대한 일반적인 관계 변용의 데이터도 있습니다만, 그 모든 채운다. 예를 들어,`ColumnUInt64` 두 열의 합계를 계산하는 방법이 없습니다. `ColumnString` 부분 문자열 검색을 수행하는 방법이 없습니다. 이러한 수많은 루틴은`IColumn`.
-열의 다양한 함수는 다음과 같이하여 일반적으로 비효율적 인 방법으로 구현할 수 있습니다`IColumn` 추출하는 방법`Field` 값 또는 특정 데이터의 내부 메모리 레이아웃의 지식을 사용하여 특수한 방법으로`IColumn` 구현. 에서 실시하는 주조 기능을 특정`IColumn` 내부 표현을 직접 입력하여 처리합니다. 예를 들어,`ColumnUInt64`은`getData` 내부 배열에 대한 참조를 반환하는 메서드는 다른 루틴이 직접 그 배열을 읽거나 채 웁니다. 우리는 가지고있다 "leaky abstractions"다양한 일상의 효율적인 전문화를 가능하게한다.
+`IColumn`에는 데이터의 일반적인 관계형 변환 방법이 있지만 모든 요구 사항을 충족하지는 않습니다. 예를 들어,`ColumnUInt64`에는 두 열의 합계를 계산하는 메소드가 없고 `ColumnString`에는 하위 문자열 검색을 실행하는 메소드가 없습니다. 이러한 수많은 루틴은`IColumn`외부에서 구현됩니다.
+열의 다양한 함수는 메소드를 사용하여 `Field` 값을 추출하는 일반적인 비효육적 방법으로 구현하거나 특정 `IColumn` 구현에서 데이터의 내부 메모리 레이아웃에 대한 지식을 사용하여 특수한 방법으로 구현할 수 있습니다. 함수를 특정 `IColumn`유형으로 캐스팅하여 구현되고 내부 표현을 직접 처리합니다. 예를 들어,`ColumnUInt64`에는 내부 배열에 대한 참조를 반환하는 `getData` 메소드가 있으며 별도의 루틴이 해당 배열을 직접 읽거나 채웁니다. 우리는 다양한 루틴을 효율적으로 전문화 할 수 있도록 "leaky abstractions"를 가지고 있습니다.
 
 ## 데이터 형 {#data_types}
 
-`IDataType` 열 또는 개별 값의 청크를 바이너리 또는 텍스트 형식으로 읽고 쓸 수있는 것입니다. `IDataType` 테이블의 데이터 형에 해당합니다. 예를 들면 다음과 같습니다`DataTypeUInt32``DataTypeDateTime``DataTypeString` 등.
+`IDataType`은 열 또는 개별 값의 청크를 바이너리 또는 텍스트 형식으로 읽고 쓸 수있는 것입니다. `IDataType`은 테이블의 데이터 형에 해당합니다. 예를 들면 `DataTypeUInt32``DataTypeDateTime``DataTypeString`이 있습니다.
 
-`IDataType`와`IColumn` 서로 완만하게 관련되어있을뿐입니다. 다른 데이터 형식은 메모리에 나타낼 수 있습니다`IColumn` 구현. 예를 들어,`DataTypeUInt32`와`DataTypeDateTime`로 표현된다. `ColumnUInt32` 또는`ColumnConstUInt32`. 또한 동일한 데이터 형식으로 표현 할수없는 한`IColumn` 구현. 예를 들어,`DataTypeUInt8`에서 표현할 수있는`ColumnUInt8` 또는`ColumnConstUInt8`.
+`IDataType`와`IColumn` 서로 느슨하게 관련되어 있습니다. 동일한 `IColumn`구현으로 서로 다른 데이터 형식을 메모리에 나타낼 수 있습니다. 예를 들어,`DataTypeUInt32`와`DataTypeDateTime`은 모두 `ColumnUInt32` 또는`ColumnConstUInt32`로 표시됩니다. 또한 동일한 데이터 형식을 `IColumn`구현으로 나타낼 수 있습니다. 예를 들어, `DataTypeUInt8`은 `ColumnUInt8` 또는`ColumnConstUInt8`로 나타낼 수 있습니다..
 
-`IDataType`화물의 메타 데이터를 지칭합니다. 예를 들어,`DataTypeUInt8` 아무것도 저장하지 않습니다 (vptr을 제외). `DataTypeFixedString` 그냥 가게`N` (고정 크기 문자열의 크기).
+`IDataType` 메타 데이터만 저장합니다. 예를 들어,`DataTypeUInt8` 아무것도 저장하지 않습니다 (vptr을 제외). `DataTypeFixedString`은 `N` (고정 크기 문자열의 크기)만 저장합니다.
 
-`IDataType` 도우미 방법에 대한 다양한 데이터 포맷 예를 들어, 쿼트 가능한 값을 직렬화하고 JSON 값을 직렬화하거나 XML 형식의 일부로 값을 serialize 할 방법이 있습니다. 데이터 형식에 대한 직접적인 지원은하지 않습니다. 예를 들어, 다른 데이터 형식`Pretty`와`TabSeparated` 동일하게 사용할 수 있습니다`serializeTextEscaped`에서 도우미 메서드`IDataType` 인터페이스
+`IDataType`에는 다양한 데이터 형식에 대한 도우미 메소드가 있습니다. 예를 들어, 가능한 따옴표로 값을 직렬화하고 `JSON` 값을 직렬화하고 XML 형식의 일부로 값을 직렬화하는 방법입니다. 데이터 형식에 대한 직접적인 지원은하지 않습니다. 예를 들어, 다른 데이터 형식`Pretty`와`TabSeparated`는 `IDataType` 인터페이스에서 동일한 `serializeTextEscaped` 도우미 메소드를 사용할 수 있습니다.
 
 ## 블록 {#block}
 
-A`Block` 메모리 테이블의 부분 집합 (청크)를 나타내는 컨테이너입니다. 그것은 단순한 트리플 세트입니다 :`(IColumn, IDataType, column name)`쿼리가 실행되는 동안 데이터는 다음과 같은 방법으로 처리됩니다`Block`s 우리는 a가 있으면`Block`, 우리는 데이터를 가지고 (에서`IColumn` 유형에 대한 정보가 있습니다`IDataType`) 그것은 그 라인을 어떻게 처리할지 알려줍니다. 이것은 테이블의 원래 열 이름 또는 임시 계산 결과를 얻기 위해 할당 된 인공적인 이름 중 하나입니다.
+A`Block` 메모리 테이블의 하위 집합 (청크)를 나타내는 컨테이너입니다. 그것은 단순한 트리플 세트입니다 :`(IColumn, IDataType, column name)`쿼리가 실행되는 동안 데이터는 다음과 같은 방법으로 처리됩니다`Block`s 우리는 a가 있으면`Block`, 우리는 데이터를 가지고 (에서`IColumn` 유형에 대한 정보가 있습니다`IDataType`) 그것은 그 라인을 어떻게 처리할지 알려줍니다. 이것은 테이블의 원래 열 이름 또는 임시 계산 결과를 얻기 위해 할당 된 인공적인 이름 중 하나입니다.
 
 블록의 열에 대해 함수를 계산할 때 그 결과를 포함한 다른 열을 블록에 추가합니다. 나중에 불필요한 열 블록에서 삭제할 수 있지만 수정할 수는 없습니다. 공통 부분 식을 제거하는 데 유용합니다.
 
