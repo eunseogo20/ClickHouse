@@ -73,4 +73,4 @@ Deb 패키지에 잘못된 구성은 데이터베이스의 남용으로 이어�
 
 신용 : 영국 국립 사이버 보안 센터 (NCSC) 
 
-{## [원본 기사] (https://clickhouse.tech/docs/en/security_changelog/) ##}
+{## [원본 기사](https://clickhouse.tech/docs/en/security_changelog/) ##}
