@@ -21,22 +21,22 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 -Array 접미사는 임의의 집계 함수에 추가 할 수 있습니다. 이 경우, 집계 함수는 'Array (T)'형태 (배열) 대신에 'T'인수를 입력합니다. 집계 함수가 복수의 인수를 받아들이는 경우, 이것은 동일한 길이의 배열이 아니면 안됩니다. 배열을 처리하는 경우, 집계 함수는 모든 배열 요소에 걸쳐 원래의 집계 함수와 동일하게 작동합니다.
 
-예 1 :`sumArray (arr)`- 모든 모든 요소를 ​​합계합니다 'arr'배열. 이 예제에서는보다 쉽게 ​​작성할 수 있습니다 :`sum (arraySum (arr))`.
+예 1 :`sumArray (arr)`- 모든 `arr`배열의 모든 요소를 합계합니다. 이 예제에서는 보다 쉽게 작성할 수 있습니다 :`sum (arraySum (arr))`.
 
-예 2 :`uniqArray (arr)`- Counts the number of unique elements in all 'arr'배열. 이것은 간단한 방법으로 할 수 있습니다 :`uniq (arrayJoin (arr))`하지만 항상 추가 할 수 없습니다 'arrayJoin'쿼리.
+예 2 :`uniqArray (arr)`- 모든 'arr'배열의 고유 요소 수를 계산합니다. 이것은 간단한 방법으로 할 수 있습니다 :`uniq (arrayJoin (arr))` 하지만 항상 쿼리에 'arrayJoin'을 추가 할 수 있는 것은 아닙니다.
 
--If과 -Array을 결합 할 수 있습니다. 그러나 'Array'첫째로 와야한다 'If'예 :`uniqArrayIf (arr, cond)`,`quantilesTimingArrayIf (level1, level2) (arr, cond)`이 순서로 인해 'cond'인수 배열은 없습니다.
+-If과 -Array을 결합 할 수 있습니다. 그러나 'Array'첫번째로 와야합니다. 'If'예 :`uniqArrayIf (arr, cond)`,`quantilesTimingArrayIf (level1, level2) (arr, cond)`이 순서로 인해 'cond'인수 배열은 없습니다.
 
 ## - 상태 {# agg-functions-combinator-state}
 
-이 연결자를 적용하면 집계 함수는 결과 값 (예를 들어, 연결자의 고유 값의 수)를 반환하지 않습니다. [uniq (reference.md # agg_function-uniq)의 중간 상태이다. `uniq` 이것은 고유 값의 개수를 계산하는 해시 테이블입니다). 이것은`AggregateFunction (...)`이용할 수 있기 때문에 추가 처리 및 저장 테이블에 마무리를 집계합니다.
+이 연결자를 적용하면 집계 함수는 결과 값 (예를 들어, [uniq](reference.md #agg_function-uniq)함수의 고유 값 수)을 반환하지 않지만 집계의 중간 상태(`uniq`의경우 고유 값의 개수를 계산하는 해시 테이블입니다).를 반환한다. 이것은 추가 처리에 사용하거나 나중에 집계를 완료하기 위해 테이블에 저장할 수 있는`AggregateFunction (...)`입니다.
 
 이들 국가는 이용 :
 
 - [AggregatingMergeTree](../../ engines / table-engines / mergetree-family / aggregatingmergetree.md) 테이블 엔진.
 - [finalizeAggregation](../../ sql-reference / functions / other-functions.md # function-finalizeaggregation) 기능.
 - [runningAccumulate](../../ sql-reference / functions / other-functions.md # function-runningaccumulate) 기능.
-- [- 병합](# aggregate_functions_combinators-merge) 연결자 조치
+- [-Merge](# aggregate_functions_combinators-merge) 연결자 조치
 - [-MergeState](# aggregate_functions_combinators-mergestate) 연결자 조치
 
 ## - 병합 {# aggregate_functions_combinators-merge}
@@ -49,7 +49,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 ## -ForEach {# agg-functions-combinator-foreach}
 
-테이블 집계 함수를 해당 배열 항목을 집계 한 결과 배열을 반환 배열의 집계 함수로 변환합니다. 예를 들어,`sumForEach` 배열의 경우`[1, 2]``[3, 4, 5]`와`[6, 7]`결과를 반환합니다`[10, 13, 5]`대응하는 배열 항목 함께 추가 한 후.
+테이블 집계 함수를 해당 배열 항목을 집계 한 결과 배열을 반환 배열의 집계 함수로 변환합니다. 예를 들어,`sumForEach` 배열의 경우 `[10, 13, 5]`대응하는 배열 항목 함께 추가 한 후 `[1, 2]``[3, 4, 5]`와`[6, 7]`결과를 반환합니다
 
 ## - 오르 기본 {# agg-functions-combinator-ordefault}
 
@@ -115,7 +115,7 @@ FROM
 
 집계 함수의 동작을 변경합니다.
 
-이 연결자 집계 함수의 결과를 [Null 가능 (../ data-types / nullable.md) 데이터 형식입니다. 집계 함수 계산하는 값이없는 경우 다음 값이 반환됩니다 [NULL] (../ syntax.md # null-literal).
+이 연결자 집계 함수의 결과를 [Null 가능](../data-types/nullable.md) 데이터 형식입니다. 집계 함수 계산하는 값이없는 경우 다음 값이 반환됩니다 [NULL](../syntax.md #null-literal).
 
 `-OrNull` 다른 조합 장치와 함께 사용될 수있다.
 
@@ -138,7 +138,7 @@ FROM
 
 ** 예 **
 
-추가`-orNull` 집계 함수의 마지막에.
+집계 함수의 마지막에 `-orNull`추가. 
 
 쿼리 :
 
