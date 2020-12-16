@@ -53,7 +53,7 @@ FROM (
 └───────────────────────────────────────────────── ───────────────────────────┘
 ```
 
-히스토그램을 시각화하려면 [바](../../sql-reference/functions/other-functions.md #function-bar) 함수 예 :
+히스토그램을 시각화하려면 [바](../../sql-reference/functions/other-functions.md#function-bar) 함수 예 :
 
 ```sql
 WITH histogram (5) (rand () % 100) AS hist
@@ -165,7 +165,7 @@ SELECT sequenceMatch ( '(? 1) (? 2)') (time, number = 1, number = 2, number = 4)
 
 ** 참고하십시오. **
 
-- [시퀀스 카운트](# function-sequencecount)
+- [시퀀스 카운트](#function-sequencecount)
 
 ## sequenceCount (pattern) (time, cond1, cond2 ...) {# function-sequencecount}
 
@@ -180,7 +180,7 @@ sequenceCount (pattern) (timestamp, cond1, cond2 ...)
 
 ** 파라미터 **
 
--`pattern` - Pattern string. See [패턴 구문](# sequence-function-pattern-syntax).
+-`pattern` - Pattern string. See [패턴 구문](#sequence-function-pattern-syntax).
 
 -`timestamp` - Column considered to contain time data. Typical data types are`Date`와`DateTime`.도 사용할 수 있습니다 대응 [UInt](../../sql-reference/data-types/int-uint.md) 데이터 형식입니다.
 
@@ -221,7 +221,7 @@ SELECT sequenceCount ( '(? 1) * (? 2)') (time, number = 1, number = 2) FROM t
 
 ** 참고하십시오. **
 
-- [시퀀스 매치](# function-sequencematch)
+- [시퀀스 매치](#function-sequencematch)
 
 ## 창 판넬 {#windowfunnel}
 
@@ -246,7 +246,7 @@ windowFunnel (window [mode]) (timestamp, cond1, cond2, ..., condN)
 -`window` - Length of the sliding window in seconds.
 -`mode` -이 옵션의 인수입니다.
     -` 'strict'` - 때`'strict'` 설정되어있는 경우 windowFunnel ()는 고유 값에 대해서만 조건을 적용합니다.
--`timestamp` - Name of the column containing the timestamp. Data types supported : 날짜 (../../ sql-reference / data-types / date.md) [DateTime](../../sql-reference/data-types/datetime.md # data_type-datetime) 기타 부호없는 정수 (timestamp가 지원에도 불구하고`UInt64` 값은 Int64 최대 값을 초과 할 수 없습니다 (2 ^ 63 -1).
+-`timestamp` - Name of the column containing the timestamp. Data types supported : 날짜 (../../ sql-reference / data-types / date.md) [DateTime](../../sql-reference/data-types/datetime.md#data_type-datetime) 기타 부호없는 정수 (timestamp가 지원에도 불구하고`UInt64` 값은 Int64 최대 값을 초과 할 수 없습니다 (2 ^ 63 -1).
 -`cond` - Conditions or data describing the chain of events [UInt8](../../sql-reference/data-types/int-uint.md).
 
 ** 반환 값 **
@@ -316,7 +316,7 @@ ORDER BY level ASC
 ## 유지 {#retention}
 
 이 함수는 1부터 32까지의 형식 인수 조건 세트를 인수로 사용합니다`UInt8` 여부를 나타내는 특정 조건을 충족하는 이벤트입니다.
-모든 조건을 인수로 지정할 수 있습니다 [WHERE] (../../ sql-reference / statements / select / where.md # select-where)).
+모든 조건을 인수로 지정할 수 있습니다 [WHERE](../../sql-reference/statements/select/where.md#select-where)).
 
 첫 번째 조건을 제외한 조건은 쌍으로 적용됩니다 : 첫 번째와 두 번째가 참이면 두 번째 결과는 참입니다 처음과 fird이 사실이라면 세 번째 결과는 참입니다.
 
@@ -496,4 +496,4 @@ Solution : Write in the GROUP BY query SearchPhrase HAVING uniqUpTo (4) (UserID)
 
 ## sumMapFiltered (keys_to_keep) (키, 값) {# summapfilteredkeys-to-keepkeys-values}
 
-같은 동작 [서브맵](reference.md # agg_functions-summap) 그러나 키의 배열은 매개 변수로 전달됩니다. 이것은 키의 기수가 높은 경우에 특히 유용합니다.
+같은 동작 [서브맵](reference.md#agg_functions-summap) 그러나 키의 배열은 매개 변수로 전달됩니다. 이것은 키의 기수가 높은 경우에 특히 유용합니다.
