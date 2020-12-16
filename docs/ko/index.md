@@ -64,11 +64,11 @@ OLAP 시나리오는 다른 일반적인 시나리오 (OLTP 및 Key-Value 액세
 
 ** 행 지향 DBMS **
 
-! [Row-oriented] (images / row-oriented.gif #)
+![Row-oriented](images/row-oriented.gif#)
 
 ** 열 지향 DBMS **
 
-! [Column-oriented] (images / column-oriented.gif #)
+![Column-oriented](images/column-oriented.gif#)
 
 차이가 알았습니까?
 
@@ -94,4 +94,4 @@ OLAP 시나리오는 다른 일반적인 시나리오 (OLTP 및 Key-Value 액세
 
 CPU 효율성을 위해 쿼리 언어는 선언적 (SQL 또는 MDX), 또는 적어도 벡터 (J, K)이어야합니다. 쿼리는 최적화를 가능하게하는 암묵적인 루프 만 포함해야합니다.
 
-{## 원래 기사 (https://clickhouse.tech/docs/en/) ##}
+{## [원본 기사] (https://clickhouse.tech/docs/en/) ##}
