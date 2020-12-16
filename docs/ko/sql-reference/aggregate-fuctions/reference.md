@@ -2,7 +2,7 @@
 machine_translated : true
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd
 toc_priority : 36
-toc_title : "\ u53C2 \ u7167"
+toc_title : "\u53C2\u7167"
 ---
 
 # 집계 함수의 참조 {# aggregate-functions-reference}
@@ -20,18 +20,18 @@ ClickHouse는 다음 구문을 지원합니다`count` :
 기능은 걸릴 수 있습니다 :
 
 - 제로 파라미터.
-- 한 식 (../ syntax.md # syntax-expressions).
+- 한 [식](../syntax.md#syntax-expressions).
 
 ** 반환 값 **
 
 - 함수가 매개 변수없이 호출 된 경우 행 수가 계산됩니다.
-- 만약 식 (../ syntax.md # syntax-expressions) 전달되면 함수는이식이 not null을 반환 횟수를 계산합니다. 식이 a를 돌려주는 경우 [Null 가능 (../../ sql-reference / data-types / nullable.md) - 형태의 값 다음 결과`count` 가만히 있지`Nullable` 표현식을 반환 경우 함수는 0을 반환합니다`NULL` 모든 행에 대해.
+- 만약 식 (../syntax.md#syntax-expressions) 전달되면 함수는이식이 not null을 반환 횟수를 계산합니다. 식이 a를 돌려주는 경우 [Nullable](../../sql-reference/data-types/nullable.md) - 형태의 값 다음 결과`count` 가만히 있지`Nullable` 표현식을 반환 경우 함수는 0을 반환합니다`NULL` 모든 행에 대해.
 
-두 경우 모두, 반환 형식은 다음과 같습니다 [UInt64 (../../ sql-reference / data-types / int-uint.md).
+두 경우 모두, 반환 형식은 다음과 같습니다 [UInt64](../../sql-reference/data-types/int-uint.md).
 
 ** 자세한 **
 
-클릭 하우스는`COUNT (DISTINCT ...)`구문. 이 구조의 동작은 [count_distinct_implementation (../../ operations / settings / settings.md # settings-count_distinct_implementation) 설정. 그것은 어떤 것을 정의합니다 [uniq \ * (# agg_function-uniq) 함수는 작업을 수행하는 데 사용됩니다. 기본값은 uniqExact (# agg_function-uniqexact) 기능.
+클릭 하우스는`COUNT (DISTINCT ...)`구문. 이 구조의 동작은 [count_distinct_implementation](../../operations/settings/settings.md#settings-count_distinct_implementation) 설정. 그것은 어떤 것을 정의합니다 [uniq*](#agg_function-uniq) 함수는 작업을 수행하는 데 사용됩니다. 기본값은 [uniqExact](#agg_function-uniqexact) 기능.
 
 그`SELECT count () FROM table` 테이블 항목의 수가 별도로 저장되지 않기 때문에 쿼리는 최적화되지 않습니다. 테이블에서 작은 열을 선택하고 그 안에있는 값의 개수를 계산합니다.
 
@@ -45,8 +45,8 @@ SELECT count () FROM t
 
 ```text
 ┌─count () ─┐
-│ 5 │
-└─────────┘
+│         5 │
+└───────────┘
 ```
 
 예 2 :
@@ -67,8 +67,8 @@ SELECT count (DISTINCT num) FROM t
 
 ```text
 ┌─uniqExact (num) ─┐
-│ 3 │
-└────────────────┘
+│                3 │
+└──────────────────┘
 ```
 
 이 예에서는`count (DISTINCT num)`에 의해 실행됩니다. `uniqExact`에 따라 기능`count_distinct_implementation` 설정.
@@ -85,7 +85,7 @@ SELECT count (DISTINCT num) FROM t
 
 ## anyHeavy (x) {#anyheavyx}
 
-를 사용하여 자주 발생하는 값을 선택합니다. [헤비 히터 (http://www.cs.umd.edu/~samir/498/karp.pdf) 알고리즘 각 쿼리의 실행 스레드에서 케이스의 절반이 넘는 값이있는 경우이 값이 반환됩니다. 일반적으로 결과는 비 결정적입니다.
+를 사용하여 자주 발생하는 값을 선택합니다. [헤비 히터](http://www.cs.umd.edu/~samir/498/karp.pdf) 알고리즘 각 쿼리의 실행 스레드에서 케이스의 절반이 넘는 값이있는 경우이 값이 반환됩니다. 일반적으로 결과는 비 결정적입니다.
 
 ```sql
 anyHeavy (column)
@@ -97,7 +97,7 @@ anyHeavy (column)
 
 ** 예 **
 
-을 가지고 [정시] (../../ getting-started / example-datasets / ontime.md) 데이터 - 세트의 자주 발생하는 값을 선택하고`AirlineID` 라인.
+을 가지고 [ontime](../../getting-started/example-datasets/ontime.md) 데이터 - 세트의 자주 발생하는 값을 선택하고`AirlineID` 라인.
 
 ```sql
 SELECT anyHeavy (AirlineID) AS res
@@ -115,7 +115,7 @@ FROM ontime
 마지막에 검출 된 값을 선택합니다.
 결과는 마찬가지로 불확정입니다. `any` 기능.
 
-## 그룹 비타 명령 {#groupbitand}
+## 그룹 비트 명령 {#groupbitand}
 
 비트 단위로 적용`AND` 수의 시리즈를 위해.
 
@@ -246,7 +246,7 @@ binary decimal
 
 ## groupBitmap {#groupbitmap}
 
-부호없는 정수 열에서 비트 맵 또는 집계, uint64 형의 기수를 돌려줍니다. [비트 맵] (../../ sql-reference / functions / bitmap-functions.md).
+부호없는 정수 열에서 비트 맵 또는 집계, uint64 형의 기수를 돌려줍니다. [비트 맵](../../sql-reference/functions/bitmap-functions.md).
 
 ```sql
 groupBitmap (expr)
@@ -301,9 +301,9 @@ num
 
 ```text
 ┌─user─────┬─salary─┐
-│ director │ 5000 │
-│ manager │ 3000 │
-│ worker │ 1000 │
+│ director │   5000 │
+│ manager  │   3000 │
+│ worker   │   1000 │
 └──────────┴────────┘
 ```
 
@@ -313,8 +313,8 @@ SELECT argMin (user, salary) FROM salary
 
 ```text
 ┌─argMin (user, salary) ─┐
-│ worker │
-└──────────────────────┘
+│ worker                 │
+└────────────────────────┘
 ```
 
 ## 아루구 맥스 (arg, val) {# agg-function-argmax}
@@ -374,7 +374,7 @@ GROUP BY timeslot
 
 ## skewPop {#skewpop}
 
-를 계산하는 [왜곡] (https://en.wikipedia.org/wiki/Skewness) 시퀀스.
+를 계산하는 [왜곡](https://en.wikipedia.org/wiki/Skewness) 시퀀스.
 
 ```sql
 skewPop (expr)
@@ -382,11 +382,11 @@ skewPop (expr)
 
 ** 파라미터 **
 
-`expr` - 식 (../ syntax.md # syntax-expressions) 번호를 반환한다.
+`expr` - [식](../syntax.md#syntax-expressions) 번호를 반환한다.
 
 ** 반환 값 **
 
-The skewness of the given distribution : Type - [Float64 (../../ sql-reference / data-types / float.md)
+The skewness of the given distribution : Type - [Float64](../../sql-reference/data-types/float.md)
 
 ** 예 **
 
@@ -396,7 +396,7 @@ SELECT skewPop (value) FROM series_with_value_column
 
 ## skewSamp {#skewsamp}
 
-를 계산하는 샘플 비대칭 (https://en.wikipedia.org/wiki/Skewness) 시퀀스.
+를 계산하는 샘플 [비대칭](https://en.wikipedia.org/wiki/Skewness) 시퀀스.
 
 전달 된 값이 샘플을 형성하는 경우, 확률 변수의 왜곡 정도의 불편 추정치를 나타냅니다.
 
@@ -406,11 +406,11 @@ skewSamp (expr)
 
 ** 파라미터 **
 
-`expr` - 식 (../ syntax.md # syntax-expressions) 번호를 반환한다.
+`expr` - [식](../syntax.md#syntax-expressions) 번호를 반환한다.
 
 ** 반환 값 **
 
-The skewness of the given distribution : Type - [Float64 (../../ sql-reference / data-types / float.md) 만약`n <= 1` (`n`은 샘플의 크기입니다) 그 함수가 반환`nan`.
+The skewness of the given distribution : Type - [Float64](../../sql-reference/data-types/float.md) 만약`n <= 1` (`n`은 샘플의 크기입니다) 그 함수가 반환`nan`.
 
 ** 예 **
 
@@ -420,7 +420,7 @@ SELECT skewSamp (value) FROM series_with_value_column
 
 ## 커트 팝 {#kurtpop}
 
-를 계산하는 [첨도 (https://en.wikipedia.org/wiki/Kurtosis) 시퀀스.
+를 계산하는 [첨도](https://en.wikipedia.org/wiki/Kurtosis) 시퀀스.
 
 ```sql
 kurtPop (expr)
@@ -428,11 +428,11 @@ kurtPop (expr)
 
 ** 파라미터 **
 
-`expr` - 식 (../ syntax.md # syntax-expressions) 번호를 반환한다.
+`expr` - [식](../syntax.md#syntax-expressions) 번호를 반환한다.
 
 ** 반환 값 **
 
-The kurtosis of the given distribution : Type - [Float64 (../../ sql-reference / data-types / float.md)
+The kurtosis of the given distribution : Type - [Float64](../../sql-reference/data-types/float.md)
 
 ** 예 **
 
@@ -442,7 +442,7 @@ SELECT kurtPop (value) FROM series_with_value_column
 
 ## 쿠루차ン뿌 {#kurtsamp}
 
-를 계산하는 [첨도의 샘플 (https://en.wikipedia.org/wiki/Kurtosis) 시퀀스.
+를 계산하는 [첨도의 샘플](https://en.wikipedia.org/wiki/Kurtosis) 시퀀스.
 
 전달 된 값이 그 표본을 형성하는 경우, 확률 변수의 첨도의 불편 추정치를 나타냅니다.
 
@@ -452,11 +452,11 @@ kurtSamp (expr)
 
 ** 파라미터 **
 
-`expr` - 식 (../ syntax.md # syntax-expressions) 번호를 반환한다.
+`expr` - [식](../syntax.md#syntax-expressions) 번호를 반환한다.
 
 ** 반환 값 **
 
-The kurtosis of the given distribution : Type - [Float64 (../../ sql-reference / data-types / float.md) 만약`n <= 1` (`n`은 샘플의 크기입니다) 함수는`nan`.
+The kurtosis of the given distribution : Type - [Float64](../../ sql-reference / data-types / float.md) 만약`n <= 1` (`n`은 샘플의 크기입니다) 함수는`nan`.
 
 ** 예 **
 
@@ -472,7 +472,7 @@ SELECT kurtSamp (value) FROM series_with_value_column
 
 ## avgWeighted {#avgweighted}
 
-계산 가중 산술 평균 (https://en.wikipedia.org/wiki/Weighted_arithmetic_mean).
+[계산 가중 산술 평균](https://en.wikipedia.org/wiki/Weighted_arithmetic_mean).
 
 ** 구문 **
 
@@ -482,8 +482,8 @@ avgWeighted (x, weight)
 
 ** 파라미터 **
 
--`x` - Values ​​[정수] (../ data-types / int-uint.md) 또는 부동 소수점 (../ data-types / float.md).
--`weight` - Weights of the values ​​[정수] (../ data-types / int-uint.md) 또는 부동 소수점 (../ data-types / float.md).
+-`x` - Values ​​[정수](../data-types/int-uint.md) 또는 [부동 소수점](../data-types/float.md).
+-`weight` - Weights of the values ​​[정수](../data-types/int-uint.md) 또는 [부동 소수점](../data-types/float.md).
 
 유형`x`와`weight` 동일해야합니다.
 
@@ -492,7 +492,7 @@ avgWeighted (x, weight)
 - 가중 평균.
 -`NaN` 모든 가중치가 0이라면.
 
-유형 : Float64] (../ data-types / float.md).
+유형 : [Float64](../data-types/float.md).
 
 ** 예 **
 
@@ -507,8 +507,8 @@ FROM values ​​( 'x Int8, w Int8'(4, 1), (1, 0), (10, 2))
 
 ```text
 ┌─avgWeighted (x, weight) ─┐
-│ 8 │
-└────────────────────────┘
+│                        8 │
+└──────────────────────────┘
 ```
 
 ## uniq {# agg_function-uniq}
@@ -525,7 +525,7 @@ uniq (x [, ...])
 
 ** 반환 값 **
 
-- A [UInt64 (../../ sql-reference / data-types / int-uint.md) - 유형 번호.
+- A [UInt64](../../sql-reference/data-types/int-uint.md) - 유형 번호.
 
 ** 구현 세부 사항 **
 
@@ -543,10 +543,10 @@ uniq (x [, ...])
 
 ** 참고하십시오. **
 
-- [uniqCombined (# agg_function-uniqcombined)
-- [uniqCombined64 (# agg_function-uniqcombined64)
-- [uniqHLL12 (# agg_function-uniqhll12)
-- [uniqExact (# agg_function-uniqexact)
+- [uniqCombined](#agg_function-uniqcombined)
+- [uniqCombined64](#agg_function-uniqcombined64)
+- [uniqHLL12](#agg_function-uniqhll12)
+- [uniqExact(#agg_function-uniqexact)
 
 ## uniqCombined {# agg_function-uniqcombined}
 
@@ -562,11 +562,11 @@ uniqCombined (HLL_precision) (x [, ...])
 
 이 함수는 가변 수의 매개 변수를 취합니다. 변수가 있습니다`Tuple``Array``Date``DateTime``String` 또는 숫자.
 
-`HLL_precision`는 셀 수의 바닥 2 로그입니다. [HyperLogLog (https://en.wikipedia.org/wiki/HyperLogLog) 옵션에서 다음과 같이 함수를 사용할 수 있습니다`uniqCombined (x [, ...])`. 기본값`HLL_precision` 17이며, 이것은 실질적으로 96KiB의 공간 (2 ^ 17 셀 각 6 비트)이다.
+`HLL_precision`는 셀 수의 바닥 2 로그입니다. [HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog) 옵션에서 다음과 같이 함수를 사용할 수 있습니다`uniqCombined (x [, ...])`. 기본값`HLL_precision` 17이며, 이것은 실질적으로 96KiB의 공간 (2 ^ 17 셀 각 6 비트)이다.
 
 ** 반환 값 **
 
-- 번호 [UInt64 (../../ sql-reference / data-types / int-uint.md) - 유형 번호.
+- 번호 [UInt64](../../sql-reference/data-types/int-uint.md) - 유형 번호.
 
 ** 구현 세부 사항 **
 
@@ -581,9 +581,9 @@ uniqCombined (HLL_precision) (x [, ...])
 - 결과를 명확하게 제공합니다 (쿼리 처리 순서에 의존하지 않습니다).
 
 !!! note "주"
-    비 32 비트 해시를 사용하기 때문에 -`String` 유형은 결과보다 훨씬 큰 기수에 대한 매우 높은 오차를 갖는`UINT_MAX` (오류는 수십억 다른 값 후 즉시 발생합니다 )이 경우 다음을 사용해야합니다 [uniqCombined64 (# agg_function-uniqcombined64)
+    비 32 비트 해시를 사용하기 때문에 -`String` 유형은 결과보다 훨씬 큰 기수에 대한 매우 높은 오차를 갖는`UINT_MAX` (오류는 수십억 다른 값 후 즉시 발생합니다 )이 경우 다음을 사용해야합니다 [uniqCombined64](#agg_function-uniqcombined64)
 
-비교되는 [uniq (# agg_function-uniq) 함수는`uniqCombined` :
+비교되는 [uniq](#agg_function-uniq) 함수는`uniqCombined` :
 
 - 몇 배 적은 메모리를 소비합니다.
 - 몇 배 높은 정밀도로 계산합니다.
@@ -591,18 +591,18 @@ uniqCombined (HLL_precision) (x [, ...])
 
 ** 참고하십시오. **
 
-- [uniq (# agg_function-uniq)
-- [uniqCombined64 (# agg_function-uniqcombined64)
-- [uniqHLL12 (# agg_function-uniqhll12)
-- [uniqExact (# agg_function-uniqexact)
+- [uniq](#agg_function-uniq)
+- [uniqCombined64](#agg_function-uniqcombined64)
+- [uniqHLL12](#agg_function-uniqhll12)
+- [uniqExact](#agg_function-uniqexact)
 
 ## uniqCombined64 {# agg_function-uniqcombined64}
 
-같은 [uniqCombined (# agg_function-uniqcombined) 그러나 모든 데이터 형식에 64 비트 해시를 사용합니다.
+같은 [uniqCombined](#agg_function-uniqcombined) 그러나 모든 데이터 형식에 64 비트 해시를 사용합니다.
 
 ## uniqHLL12 {# agg_function-uniqhll12}
 
-다른 인수 값의 대략의 수를 계산합니다. [HyperLogLog (https://en.wikipedia.org/wiki/HyperLogLog) 알고리즘
+다른 인수 값의 대략의 수를 계산합니다. [HyperLogLog](https://en.wikipedia.org/wiki/HyperLogLog) 알고리즘
 
 ```sql
 uniqHLL12 (x [, ...])
@@ -614,7 +614,7 @@ uniqHLL12 (x [, ...])
 
 ** 반환 값 **
 
-- A [UInt64 (../../ sql-reference / data-types / int-uint.md) - 유형 번호.
+- A [UInt64](../../sql-reference/data-types/int-uint.md) - 유형 번호.
 
 ** 구현 세부 사항 **
 
@@ -628,13 +628,13 @@ uniqHLL12 (x [, ...])
 
 - 확실한 결과를 제공합니다 (쿼리 처리 순서에 의존하지 않습니다).
 
-이 기능의 사용은 권장하지 않습니다. 대부분의 경우, uniq (# agg_function-uniq) 또는 uniqCombined (# agg_function-uniqcombined) 기능.
+이 기능의 사용은 권장하지 않습니다. 대부분의 경우, uniq(#agg_function-uniq) 또는 uniqCombined(#agg_function-uniqcombined) 기능.
 
 ** 참고하십시오. **
 
-- [uniq (# agg_function-uniq)
-- [uniqCombined (# agg_function-uniqcombined)
-- [uniqExact (# agg_function-uniqexact)
+- [uniq](#agg_function-uniq)
+- [uniqCombined](#agg_function-uniqcombined)
+- [uniqExact](#agg_function-uniqexact)
 
 ## uniqExact {# agg_function-uniqexact}
 
@@ -644,7 +644,7 @@ uniqHLL12 (x [, ...])
 uniqExact (x [, ...])
 ```
 
-사용하는`uniqExact` 당신이 절대적으로 정확한 결과가 필요한 경우 함수. 그렇지 않으면, uniq (# agg_function-uniq) 기능.
+사용하는`uniqExact` 당신이 절대적으로 정확한 결과가 필요한 경우 함수. 그렇지 않으면, [uniq](#agg_function-uniq) 기능.
 
 그`uniqExact` 함수는 더 많은 메모리를 사용`uniq` 상태의 크기는 다른 값의 수가 증가함에 따라 무한한 성장을 가지는 때문이다.
 
@@ -654,9 +654,9 @@ uniqExact (x [, ...])
 
 ** 참고하십시오. **
 
-- [uniq (# agg_function-uniq)
-- [uniqCombined (# agg_function-uniqcombined)
-- [uniqHLL12 (# agg_function-uniqhll12)
+- [uniq](#agg_function-uniq)
+- [uniqCombined](#agg_function-uniqcombined)
+- [uniqHLL12](#agg_function-uniqhll12)
 
 ## groupArray (x), groupArray (max_size) (x) {# agg_function-grouparray}
 
@@ -685,16 +685,16 @@ groupArrayInsertAt (default_x, size) (x, pos);
 
 ** 파라미터 **
 
--`x` - Value to be inserted. 식 (../ syntax.md # syntax-expressions) 중 하나입니다 [해당 데이터 형식 (../../ sql-reference / data- types / index.md).
--`pos` - Position at which the specified element`x` 삽입되어야합니다. 배열의 인덱스 번호는 제로로부터 시작됩니다. [UInt32 (../../ sql-reference / data-types / int-uint.md # uint-ranges).
--`default_x`- Default value for substituting in empty positions. Optional parameter. 식 (../ syntax.md # syntax-expressions) 결과 데이터 유형은`x` 매개 변수. 만약`default_x`은 정의되어 있지 않다. [기본값] (../../ sql-reference / statements / create.md # create-default-values) 사용됩니다.
--`size`- Length of the resulting array. Optional parameter. When using this parameter, the default value`default_x` 지정해야합니다. [UInt32 (../../ sql-reference / data-types / int-uint.md # uint-ranges).
+-`x` - Value to be inserted. 식 (../ syntax.md # syntax-expressions) 중 하나입니다 [해당 데이터 형식](../../sql-reference/data- types/index.md).
+-`pos` - Position at which the specified element`x` 삽입되어야합니다. 배열의 인덱스 번호는 제로로부터 시작됩니다. [UInt32](../../sql-reference/data-types/int-uint.md#uint-ranges).
+-`default_x`- Default value for substituting in empty positions. Optional parameter. [식](../syntax.md#syntax-expressions) 결과 데이터 유형은`x` 매개 변수. 만약`default_x`은 정의되어 있지 않다. [기본값](../../sql-reference/statements/create.md#create-default-values) 사용됩니다.
+-`size`- Length of the resulting array. Optional parameter. When using this parameter, the default value`default_x` 지정해야합니다. [UInt32](../../sql-reference/data-types/int-uint.md#uint-ranges).
 
 ** 반환 값 **
 
 - 값이 삽입 된 배열.
 
-유형 : 배열 (../../ sql-reference / data-types / array.md # data-type-array).
+유형 : [배열](../../sql-reference/data-types/array.md#data-type-array).
 
 ** 예 **
 
@@ -708,8 +708,8 @@ SELECT groupArrayInsertAt (toString (number) number * 2) FROM numbers (5);
 
 ```text
 ┌─groupArrayInsertAt (toString (number), multiply (number 2)) ─┐
-│ [ '0', '', '1', '', '2', '', '3', '', '4'] │
-└───────────────────────────────────────────────── ──────────┘
+│ [ '0', '', '1', '', '2', '', '3', '', '4']                   │
+└──────────────────────────────────────────────────────────────┘
 ```
 
 쿼리 :
@@ -722,8 +722,8 @@ SELECT groupArrayInsertAt ( '-') (toString (number) number * 2) FROM numbers (5)
 
 ```text
 ┌─groupArrayInsertAt ( '-') (toString (number), multiply (number 2)) ─┐
-│ [ '0', '-', '1', '-', '2', '-', '3', '-', '4'] │
-└───────────────────────────────────────────────── ───────────────┘
+│ [ '0', '-', '1', '-', '2', '-', '3', '-', '4']                      │
+└─────────────────────────────────────────────────────────────────────┘
 ```
 
 쿼리 :
@@ -736,8 +736,8 @@ SELECT groupArrayInsertAt ( '-'5) (toString (number) number * 2) FROM numbers (5
 
 ```text
 ┌─groupArrayInsertAt ( '-'5) (toString (number), multiply (number 2)) ─┐
-│ [ '0', '-', '1', '-', '2'] │
-└───────────────────────────────────────────────── ──────────────────┘
+│ [ '0', '-', '1', '-', '2']                                           │
+└──────────────────────────────────────────────────────────────────────┘
 ```
 
 하나의 위치에 요소의 멀티 스레드 삽입.
@@ -752,8 +752,8 @@ SELECT groupArrayInsertAt (number, 0) FROM numbers_mt (10) SETTINGS max_block_si
 
 ```text
 ┌─groupArrayInsertAt (number 0) ─┐
-│ [7] │
-└───────────────────────────────┘
+│ [7]                            │
+└────────────────────────────────┘
 ```
 
 ## 그룹 팔레 고구마 빙 숨 {# agg_function-grouparraymovingsum}
@@ -792,10 +792,10 @@ ENGINE = TinyLog
 
 ```text
 ┌─int─┬─float─┬──dec─┐
-│ 1 │ 1.1 │ 1.10 │
-│ 2 │ 2.2 │ 2.20 │
-│ 4 │ 4.4 │ 4.40 │
-│ 7 │ 7.77 │ 7.77 │
+│   1 │   1.1 │ 1.10 │
+│   2 │   2.2 │ 2.20 │
+│   4 │   4.4 │ 4.40 │
+│   7 │  7.77 │ 7.77 │
 └─────┴───────┴──────┘
 ```
 
@@ -811,7 +811,7 @@ FROM t
 
 ```text
 ┌─I──────────┬─F───────────────────────────────┬─D ──────────────────────┐
-│ [1,3,7,14] │ [1.1,3.3000002,7.7000003,15.47] │ [1.10,3.30,7.70,15.47] │
+│ [1,3,7,14] │ [1.1,3.3000002,7.7000003,15.47] │ [1.10,3.30,7.70,15.47]  │
 └────────────┴─────────────────────────────────┴── ──────────────────────┘
 ```
 
@@ -825,7 +825,7 @@ FROM t
 
 ```text
 ┌─I──────────┬─F───────────────────────────────┬─D ──────────────────────┐
-│ [1,3,6,11] │ [1.1,3.3000002,6.6000004,12.17] │ [1.10,3.30,6.60,12.17] │
+│ [1,3,6,11] │ [1.1,3.3000002,6.6000004,12.17] │ [1.10,3.30,6.60,12.17]  │
 └────────────┴─────────────────────────────────┴── ──────────────────────┘
 ```
 
@@ -842,14 +842,14 @@ groupArrayMovingAvg (window_size) (numbers_for_summing)
 
 ** 파라미터 **
 
--`numbers_for_summing` - 식 (../ syntax.md # syntax-expressions) 숫자 데이터 형식의 값입니다.
+-`numbers_for_summing` - [식](../syntax.md#syntax-expressions) 숫자 데이터 형식의 값입니다.
 -`window_size` - Size of the calculation window.
 
 ** 반환 값 **
 
 - 입력 데이터와 동일한 크기와 형태의 배열.
 
-이 함수는 [제로 반올림 (https://en.wikipedia.org/wiki/Rounding#Rounding_towards_zero) 결과 데이터 형식의 소수 자릿수를 자릅니다.
+이 함수는 [제로 반올림](https://en.wikipedia.org/wiki/Rounding#Rounding_towards_zero) 결과 데이터 형식의 소수 자릿수를 자릅니다.
 
 ** 예 **
 
@@ -867,10 +867,10 @@ ENGINE = TinyLog
 
 ```text
 ┌─int─┬─float─┬──dec─┐
-│ 1 │ 1.1 │ 1.10 │
-│ 2 │ 2.2 │ 2.20 │
-│ 4 │ 4.4 │ 4.40 │
-│ 7 │ 7.77 │ 7.77 │
+│   1 │   1.1 │ 1.10 │
+│   2 │   2.2 │ 2.20 │
+│   4 │   4.4 │ 4.40 │
+│   7 │  7.77 │ 7.77 │
 └─────┴───────┴──────┘
 ```
 
@@ -886,7 +886,7 @@ FROM t
 
 ```text
 ┌─I─────────┬─F─────────────────────────────────── ┬─D─────────────────────┐
-│ [0,0,1,3] │ [0.275,0.82500005,1.9250001,3.8675] │ [0.27,0.82,1.92,3.86] │
+│ [0,0,1,3] │ [0.275,0.82500005,1.9250001,3.8675] │ [0.27,0.82,1.92,3.86]  │
 └───────────┴───────────────────────────────────── ┴───────────────────────┘
 ```
 
@@ -900,7 +900,7 @@ FROM t
 
 ```text
 ┌─I─────────┬─F────────────────────────────────┬─D ─────────────────────┐
-│ [0,1,3,5] │ [0.55,1.6500001,3.3000002,6.085] │ [0.55,1.65,3.30,6.08] │
+│ [0,1,3,5] │ [0.55,1.6500001,3.3000002,6.085] │ [0.55,1.65,3.30,6.08]  │
 └───────────┴──────────────────────────────────┴── ─────────────────────┘
 ```
 
@@ -913,11 +913,11 @@ FROM t
 
 ## 분 정도 수 {#quantile}
 
-근사치를 계산합니다 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
+근사치를 계산합니다 [분 위수](https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
 
-이 함수가 적용됩니다 [공기통 표본 추출 (https://en.wikipedia.org/wiki/Reservoir_sampling) 8192까지 공기통의 크기 및 표본 추출을 위해 난수 생성기를 사용합니다. 결과는 비 결정적입니다. 정확한 분위 값을 얻으려면 다음 수식을 사용합니다 [quantileExact (# quantileexact) 기능.
+이 함수가 적용됩니다 [공기통 표본 추출](https://en.wikipedia.org/wiki/Reservoir_sampling) 8192까지 공기통의 크기 및 표본 추출을 위해 난수 생성기를 사용합니다. 결과는 비 결정적입니다. 정확한 분위 값을 얻으려면 다음 수식을 사용합니다 [quantileExact](#quantileexact) 기능.
 
-이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
+이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, [분 위수](#quantiles) 기능.
 
 ** 구문 **
 
@@ -929,8 +929,8 @@ quantile (level) (expr)
 
 ** 파라미터 **
 
--`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값 (https://en.wikipedia.org/wiki/Median).
--`expr` - Expression over the column values ​​resulting in numeric 데이터 형식 (../../ sql-reference / data-types / index.md # data_types), 날짜 (../../ sql -reference / data-types / date.md) 또는 DateTime (../../ sql-reference / data-types / datetime.md).
+-`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값](https://en.wikipedia.org/wiki/Median).
+-`expr` - Expression over the column values ​​resulting in numeric [데이터 형식](../../ sql-reference / data-types / index.md # data_types), [Date](../../sql -reference/data-types/date.md) 또는 [DateTime](../../sql-reference/data-types/datetime.md).
 
 ** 반환 값 **
 
@@ -938,9 +938,9 @@ quantile (level) (expr)
 
 유형 :
 
-- [Float64 (../../ sql-reference / data-types / float.md) 숫자 데이터 형식 입력의 경우.
-- 날짜 (../../ sql-reference / data-types / date.md) 입력 값이`Date` 타입.
-- [DateTime (../../ sql-reference / data-types / datetime.md) 입력 값이`DateTime` 타입.
+- [Float64](../../sql-reference/data-types/float.md) 숫자 데이터 형식 입력의 경우.
+- [Date](../../sql-reference/data-types/date.md) 입력 값이`Date` 타입.
+- [DateTime](../../sql-reference/data-types/datetime.md) 입력 값이`DateTime` 타입.
 
 ** 예 **
 
@@ -948,10 +948,10 @@ quantile (level) (expr)
 
 ```text
 ┌─val─┐
-│ 1 │
-│ 1 │
-│ 2 │
-│ 3 │
+│   1 │
+│   1 │
+│   2 │
+│   3 │
 └─────┘
 ```
 
@@ -965,22 +965,22 @@ SELECT quantile (val) FROM t
 
 ```text
 ┌─quantile (val) ─┐
-│ 1.5 │
-└───────────────┘
+│             1.5 │
+└─────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [중간] (# median)
-- [분 위수 (# quantiles)
+- [중간](#median)
+- [분 위수](#quantiles)
 
 ## quantileDeterministic {#quantiledeterministic}
 
-근사치를 계산합니다 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
+근사치를 계산합니다 [분 위수](https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
 
-이 함수가 적용됩니다 [공기통 표본 추출 (https://en.wikipedia.org/wiki/Reservoir_sampling) 공기통의 크기 8192까지 및 표본 추출의 결정 론적 알고리즘을 사용합니다. 결과는 결정적입니다. 정확한 분위 값을 얻으려면 다음 수식을 사용합니다 [quantileExact (# quantileexact) 기능.
+이 함수가 적용됩니다 [공기통 표본 추출](https://en.wikipedia.org/wiki/Reservoir_sampling) 공기통의 크기 8192까지 및 표본 추출의 결정 론적 알고리즘을 사용합니다. 결과는 결정적입니다. 정확한 분위 값을 얻으려면 다음 수식을 사용합니다 [quantileExact](#quantileexact) 기능.
 
-이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
+이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, [분 위수](#quantiles) 기능.
 
 ** 구문 **
 
@@ -1002,9 +1002,9 @@ quantileDeterministic (level) (expr, determinator)
 
 유형 :
 
-- [Float64 (../../ sql-reference / data-types / float.md) 숫자 데이터 형식 입력의 경우.
-- 날짜 (../../ sql-reference / data-types / date.md) 입력 값이`Date` 타입.
-- [DateTime (../../ sql-reference / data-types / datetime.md) 입력 값이`DateTime` 타입.
+- [Float64](../../sql-reference/data-types/float.md) 숫자 데이터 형식 입력의 경우.
+- [Date](../../sql-reference/data-types/date.md) 입력 값이`Date` 타입.
+- [DateTime](../../sql-reference/data-types/datetime.md) 입력 값이`DateTime` 타입.
 
 ** 예 **
 
@@ -1012,10 +1012,10 @@ quantileDeterministic (level) (expr, determinator)
 
 ```text
 ┌─val─┐
-│ 1 │
-│ 1 │
-│ 2 │
-│ 3 │
+│   1 │
+│   1 │
+│   2 │
+│   3 │
 └─────┘
 ```
 
@@ -1029,22 +1029,22 @@ SELECT quantileDeterministic (val 1) FROM t
 
 ```text
 ┌─quantileDeterministic (val 1) ─┐
-│ 1.5 │
-└───────────────────────────────┘
+│                            1.5 │
+└────────────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [중간] (# median)
-- [분 위수 (# quantiles)
+- [중간](#median)
+- [분 위수](#quantiles)
 
 ## quantileExact {#quantileexact}
 
-정확하게 계산하는 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
+정확하게 계산하는 [분 위수](https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
 
 To get exact value, all the passed values ​​are combined into an array, which is then partially sorted. Therefore, the function consumes`O (n)`메모리, 어디`n` 전달 된 값의 수입니다. 그러나 소수 값의 경우,이 함수는 매우 효과적입니다.
 
-이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
+이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, [분 위수](#quantiles) 기능.
 
 ** 구문 **
 
@@ -1056,8 +1056,8 @@ quantileExact (level) (expr)
 
 ** 파라미터 **
 
--`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값 (https://en.wikipedia.org/wiki/Median).
--`expr` - Expression over the column values ​​resulting in numeric 데이터 형식 (../../ sql-reference / data-types / index.md # data_types), 날짜 (../../ sql -reference / data-types / date.md) 또는 DateTime (../../ sql-reference / data-types / datetime.md).
+-`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값](https://en.wikipedia.org/wiki/Median).
+-`expr` - Expression over the column values ​​resulting in numeric [데이터 형식](../../sql-reference/data-types/index.md#data_types), [Date](../../sql -reference/data-types/date.md) 또는 DateTime (../../sql-reference/data-types/datetime.md).
 
 ** 반환 값 **
 
@@ -1065,9 +1065,9 @@ quantileExact (level) (expr)
 
 유형 :
 
-- [Float64 (../../ sql-reference / data-types / float.md) 숫자 데이터 형식 입력의 경우.
-- 날짜 (../../ sql-reference / data-types / date.md) 입력 값이`Date` 타입.
-- [DateTime (../../ sql-reference / data-types / datetime.md) 입력 값이`DateTime` 타입.
+- [Float64](../../sql-reference/data-types/float.md) 숫자 데이터 형식 입력의 경우.
+- [Date](../../sql-reference/data-types/date.md) 입력 값이`Date` 타입.
+- [DateTime](../../sql-reference/data-types/datetime.md) 입력 값이`DateTime` 타입.
 
 ** 예 **
 
@@ -1081,20 +1081,20 @@ SELECT quantileExact (number) FROM numbers (10)
 
 ```text
 ┌─quantileExact (number) ─┐
-│ 5 │
-└───────────────────────┘
+│                       5 │
+└─────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [중간] (# median)
-- [분 위수 (# quantiles)
+- [중간](#median)
+- [분 위수](#quantiles)
 
 ## quantileExactWeighted {#quantileexactweighted}
 
-정확하게 계산하는 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 각 요소의 가중치를 고려하여 수치 데이터 시퀀스의 가중치를 지정합니다.
+정확하게 계산하는 [분 위수](https://en.wikipedia.org/wiki/Quantile) 각 요소의 가중치를 고려하여 수치 데이터 시퀀스의 가중치를 지정합니다.
 
-To get exact value, all the passed values ​​are combined into an array, which is then partially sorted. Each value is counted with its weight, as if it is present`weight` times. A hash table is used in the algorithm. Because of this, if the passed values ​​are frequently repeated, the function consumes less RAM than [quantileExact (# quantileexact)이 함수는 다음 대신 사용할 수 있습니다`quantileExact` 그리고 가중치 1을 지정합니다 .
+To get exact value, all the passed values ​​are combined into an array, which is then partially sorted. Each value is counted with its weight, as if it is present`weight` times. A hash table is used in the algorithm. Because of this, if the passed values ​​are frequently repeated, the function consumes less RAM than [quantileExact](#quantileexact)이 함수는 다음 대신 사용할 수 있습니다`quantileExact` 그리고 가중치 1을 지정합니다 .
 
 이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
 
@@ -1108,8 +1108,8 @@ quantileExactWeighted (level) (expr, weight)
 
 ** 파라미터 **
 
--`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값 (https://en.wikipedia.org/wiki/Median).
--`expr` - Expression over the column values ​​resulting in numeric 데이터 형식 (../../ sql-reference / data-types / index.md # data_types), 날짜 (../../ sql -reference / data-types / date.md) 또는 DateTime (../../ sql-reference / data-types / datetime.md).
+-`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값](https://en.wikipedia.org/wiki/Median).
+-`expr` - Expression over the column values ​​resulting in numeric [데이터 형식](../../ sql-reference / data-types / index.md # data_types), [Date](../../sql-reference/data-types/date.md) 또는 [DateTime](../../sql-reference/data-types/datetime.md).
 -`weight` - Column with weights of sequence members. Weight is a number of value occurrences.
 
 ** 반환 값 **
@@ -1118,9 +1118,9 @@ quantileExactWeighted (level) (expr, weight)
 
 유형 :
 
-- [Float64 (../../ sql-reference / data-types / float.md) 숫자 데이터 형식 입력의 경우.
-- 날짜 (../../ sql-reference / data-types / date.md) 입력 값이`Date` 타입.
-- [DateTime (../../ sql-reference / data-types / datetime.md) 입력 값이`DateTime` 타입.
+- [Float64](../../sql-reference/data-types/float.md) 숫자 데이터 형식 입력의 경우.
+- [Date](../../sql-reference/data-types/date.md) 입력 값이`Date` 타입.
+- [DateTime](../../sql-reference/data-types/datetime.md) 입력 값이`DateTime` 타입.
 
 ** 예 **
 
@@ -1128,10 +1128,10 @@ quantileExactWeighted (level) (expr, weight)
 
 ```text
 ┌─n─┬─val─┐
-│ 0 │ 3 │
-│ 1 │ 2 │
-│ 2 │ 1 │
-│ 5 │ 4 │
+│ 0 │   3 │
+│ 1 │   2 │
+│ 2 │   1 │
+│ 5 │   4 │
 └───┴─────┘
 ```
 
@@ -1145,22 +1145,22 @@ SELECT quantileExactWeighted (n, val) FROM t
 
 ```text
 ┌─quantileExactWeighted (n, val) ─┐
-│ 1 │
-└───────────────────────────────┘
+│                               1 │
+└─────────────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [중간] (# median)
-- [분 위수 (# quantiles)
+- [중간](#median)
+- [분 위수](#quantiles)
 
 ## 쿠온 타이밍 {#quantiletiming}
 
-결정된 정밀도는 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
+결정된 정밀도는 [분 위수](https://en.wikipedia.org/wiki/Quantile) 수치 데이터 시퀀스.
 
-결과는 결정적입니다 (쿼리 처리 순서에 의존하지 않습니다). 이 기능을 최적화 및 배열의 ​​분포 같은 적재 웹 페이지에서 백엔드 대응.
+결과는 결정적입니다 (쿼리 처리 순서에 의존하지 않습니다). 이 기능을 최적화 및 배열의 분포 같은 적재 웹 페이지에서 백엔드 대응.
 
-이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
+이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, [분 위수](#quantiles) 기능.
 
 ** 구문 **
 
@@ -1172,11 +1172,11 @@ quantileTiming (level) (expr)
 
 ** 파라미터 **
 
--`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값 (https://en.wikipedia.org/wiki/Median).
+-`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값](https://en.wikipedia.org/wiki/Median).
 
--`expr` - 식 (../ syntax.md # syntax-expressions) a를 돌려 열 값에 대해 플로트 \ * (../../ sql-reference / data-types / float .md) - 유형 번호.
+-`expr` - [식](../syntax.md#syntax-expressions) a를 돌려 열 값에 대해 [float*](../../sql-reference/data-types/float .md) - 유형 번호.
 
-        - If negative values ​​are passed to the function, the behavior is undefined.
+        - If negative values are passed to the function, the behavior is undefined.
         - If the value is greater than 30,000 (a page loading time of more than 30 seconds), it is assumed to be 30,000.
 
 ** 정확도 **
@@ -1189,7 +1189,7 @@ quantileTiming (level) (expr)
 그렇지 않으면 계산의 결과는 16ms의 가장 가까운 배수로 반올림됩니다.
 
 !!! note "주"
-    페이지로드 시간의 분위 수를 계산하기 위해이 기능은 능률적이고 정확합니다 [분 위수 (# quantile).
+    페이지로드 시간의 분위 수를 계산하기 위해이 기능은 능률적이고 정확합니다 [분 위수](#quantile).
 
 ** 반환 값 **
 
@@ -1198,7 +1198,7 @@ quantileTiming (level) (expr)
 유형 :`Float32`.
 
 !!! note "주"
-    함수에 값이 전달되지 않은 경우 (사용하는 경우`quantileTimingIf`), 난 (../../ sql-reference / data-types / float.md # data_type-float-nan-inf) 반환됩니다. 이 목표는 이러한 경우를 제로로되는 경우와 구별하는 것입니다. 더보기 [ORDER BY 절] (../ statements / select / order-by.md # select-order-by) 정렬 지침`NaN` 값.
+    함수에 값이 전달되지 않은 경우 (사용하는 경우`quantileTimingIf`), [NAN](../../sql-reference/data-types/float.md#data_type-float-nan-inf) 반환됩니다. 이 목표는 이러한 경우를 제로로되는 경우와 구별하는 것입니다. 더보기 [ORDER BY 절](../statements/select/order-by.md#select-order-by) 정렬 지침`NaN` 값.
 
 ** 예 **
 
@@ -1206,15 +1206,15 @@ quantileTiming (level) (expr)
 
 ```text
 ┌─response_time─┐
-│ 72 │
-│ 112 │
-│ 126 │
-│ 145 │
-│ 104 │
-│ 242 │
-│ 313 │
-│ 168 │
-│ 108 │
+│            72 │
+│           112 │
+│           126 │
+│           145 │
+│           104 │
+│           242 │
+│           313 │
+│           168 │
+│           108 │
 └───────────────┘
 ```
 
@@ -1228,22 +1228,22 @@ SELECT quantileTiming (response_time) FROM t
 
 ```text
 ┌─quantileTiming (response_time) ─┐
-│ 126 │
-└───────────────────────────────┘
+│                             126 │
+└─────────────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [중간] (# median)
-- [분 위수 (# quantiles)
+- [중간](#median)
+- [분 위수](#quantiles)
 
 ## quantitetimingweighted {#quantiletimingweighted}
 
-결정된 정밀도는 [분 위수 (https://en.wikipedia.org/wiki/Quantile) 각 시퀀스 멤버의 가중치에 따라 수치 데이터 시퀀스.
+결정된 정밀도는 [분 위수](https://en.wikipedia.org/wiki/Quantile) 각 시퀀스 멤버의 가중치에 따라 수치 데이터 시퀀스.
 
-결과는 결정적입니다 (쿼리 처리 순서에 의존하지 않습니다). 이 기능을 최적화 및 배열의 ​​분포 같은 적재 웹 페이지에서 백엔드 대응.
+결과는 결정적입니다 (쿼리 처리 순서에 의존하지 않습니다). 이 기능을 최적화 및 배열의 분포 같은 적재 웹 페이지에서 백엔드 대응.
 
-이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, 분 위수 (# quantiles) 기능.
+이상을 사용하는 경우`quantile *`쿼리의 서로 다른 수준의 함수는 내부 상태는 결합되지 않습니다 (즉, 쿼리 동작 할 수있을만큼 효율적이지 않습니다). 이 경우, [분 위수](#quantiles) 기능.
 
 ** 구문 **
 
@@ -1255,11 +1255,11 @@ quantileTimingWeighted (level) (expr, weight)
 
 ** 파라미터 **
 
--`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값 (https://en.wikipedia.org/wiki/Median).
+-`level` - Level of quantile. Optional parameter. Constant floating-point number from 0 to 1. We recommend using a`level` 범위의 값`[0.01, 0.99]`기본값은 0.5입니다. 에서`level = 0.5`이 함수는 [중앙값](https://en.wikipedia.org/wiki/Median).
 
--`expr` - 식 (../ syntax.md # syntax-expressions) a를 돌려 열 값에 대해 플로트 \ * (../../ sql-reference / data-types / float .md) - 유형 번호.
+-`expr` - [식](../syntax.md#syntax-expressions) a를 돌려 열 값에 대해 [float*](../../sql-reference/data-types/float .md) - 유형 번호.
 
-        - If negative values ​​are passed to the function, the behavior is undefined.
+        - If negative values are passed to the function, the behavior is undefined.
         - If the value is greater than 30,000 (a page loading time of more than 30 seconds), it is assumed to be 30,000.
 
 -`weight` - Column with weights of sequence elements. Weight is a number of value occurrences.
@@ -1274,7 +1274,7 @@ quantileTimingWeighted (level) (expr, weight)
 그렇지 않으면 계산의 결과는 16ms의 가장 가까운 배수로 반올림됩니다.
 
 !!! note "주"
-    페이지로드 시간의 분위 수를 계산하기 위해이 기능은 능률적이고 정확합니다 [분 위수 (# quantile).
+    페이지로드 시간의 분위 수를 계산하기 위해이 기능은 능률적이고 정확합니다 [분 위수](#quantile).
 
 ** 반환 값 **
 
@@ -1283,7 +1283,7 @@ quantileTimingWeighted (level) (expr, weight)
 유형 :`Float32`.
 
 !!! note "주"
-    함수에 값이 전달되지 않은 경우 (사용하는 경우`quantileTimingIf`), 난 (../../ sql-reference / data-types / float.md # data_type-float-nan-inf) 반환됩니다. 이 목표는 이러한 경우를 제로로되는 경우와 구별하는 것입니다. 더보기 [ORDER BY 절] (../ statements / select / order-by.md # select-order-by) 정렬 지침`NaN` 값.
+    함수에 값이 전달되지 않은 경우 (사용하는 경우`quantileTimingIf`), [NAN](../../sql-reference/data-types/float.md#data_type-float-nan-inf) 반환됩니다. 이 목표는 이러한 경우를 제로로되는 경우와 구별하는 것입니다. 더보기 [ORDER BY 절](../statements/select/order-by.md#select-order-by) 정렬 지침`NaN` 값.
 
 ** 예 **
 
@@ -1291,12 +1291,12 @@ quantileTimingWeighted (level) (expr, weight)
 
 ```text
 ┌─response_time─┬─weight─┐
-│ 68 │ 1 │
-│ 104 │ 2 │
-│ 112 │ 3 │
-│ 126 │ 2 │
-│ 138 │ 1 │
-│ 162 │ 1 │
+│            68 │      1 │
+│           104 │      2 │
+│           112 │      3 │
+│           126 │      2 │
+│           138 │      1 │
+│           162 │      1 │
 └───────────────┴────────┘
 ```
 
@@ -1310,8 +1310,8 @@ SELECT quantileTimingWeighted (response_time, weight) FROM t
 
 ```text
 ┌─quantileTimingWeighted (response_time, weight) ─┐
-│ 112 │
-└───────────────────────────────────────────────┘
+│                                             112 │
+└─────────────────────────────────────────────────┘
 ```
 
 ** 참고하십시오. **
