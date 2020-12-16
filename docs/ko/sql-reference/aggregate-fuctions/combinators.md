@@ -9,7 +9,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 집계 함수의 이름에 접미사를 추가 할 수 있습니다. 그러면 집계 함수의 동작 방법이 변경됩니다.
 
-## - 만약 {# agg-functions-combinator-if}
+## - IF {# agg-functions-combinator-if}
 
 접미사 -If는 집계 함수의 이름에 추가 할 수 있습니다. 이 경우 집계 함수는 추가 인수 인 조건 (Uint8 유형)을 허용합니다. 집계 함수는 조건을 트리거하는 행만 처리합니다. 조건이 한 번도 트리거되지 않은 경우 기본값 (일반적으로 0 또는 빈 문자열)을 반환합니다.
 
@@ -17,7 +17,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 조건 집계 함수를 사용하면 하위 쿼리 및 하위 쿼리를 사용하지 않고 여러 조건의 집계를 한 번에 계산할 수 있습니다. `JOIN` 예를 들어, Yandex 중. Metrica 조건부 집계 함수를 사용하여 세그먼트 비교 기능을 구현합니다.
 
-## - 배열 {# agg-functions-combinator-array}
+## - Array {# agg-functions-combinator-array}
 
 -Array 접미사는 임의의 집계 함수에 추가 할 수 있습니다. 이 경우, 집계 함수는 'Array (T)'형태 (배열) 대신에 'T'인수를 입력합니다. 집계 함수가 복수의 인수를 받아들이는 경우, 이것은 동일한 길이의 배열이 아니면 안됩니다. 배열을 처리하는 경우, 집계 함수는 모든 배열 요소에 걸쳐 원래의 집계 함수와 동일하게 작동합니다.
 
@@ -27,11 +27,11 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 -If과 -Array을 결합 할 수 있습니다. 그러나 'Array'첫번째로 와야합니다. 'If'예 :`uniqArrayIf (arr, cond)`,`quantilesTimingArrayIf (level1, level2) (arr, cond)`이 순서로 인해 'cond'인수 배열은 없습니다.
 
-## - 상태 {# agg-functions-combinator-state}
+## - State {# agg-functions-combinator-state}
 
 이 연결자를 적용하면 집계 함수는 결과 값 (예를 들어, [uniq](reference.md #agg_function-uniq)함수의 고유 값 수)을 반환하지 않지만 집계의 중간 상태(`uniq`의경우 고유 값의 개수를 계산하는 해시 테이블입니다).를 반환한다. 이것은 추가 처리에 사용하거나 나중에 집계를 완료하기 위해 테이블에 저장할 수 있는`AggregateFunction (...)`입니다.
 
-이들 국가는 이용 :
+이러한 상태로 작업하려면 다음을 사용하십시오:
 
 - [AggregatingMergeTree](../../ engines / table-engines / mergetree-family / aggregatingmergetree.md) 테이블 엔진.
 - [finalizeAggregation](../../ sql-reference / functions / other-functions.md # function-finalizeaggregation) 기능.
@@ -39,7 +39,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 - [-Merge](# aggregate_functions_combinators-merge) 연결자 조치
 - [-MergeState](# aggregate_functions_combinators-mergestate) 연결자 조치
 
-## - 병합 {# aggregate_functions_combinators-merge}
+## - Merge {# aggregate_functions_combinators-merge}
 
 이 연결자를 적용하면 aggregate 함수는 중간 집계 상태를 인수로 받아 국가를 결합하여 집계를 종료하고 결과 값을 반환합니다.
 
@@ -51,7 +51,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 테이블 집계 함수를 해당 배열 항목을 집계 한 결과 배열을 반환 배열의 집계 함수로 변환합니다. 예를 들어,`sumForEach` 배열의 경우 `[10, 13, 5]`대응하는 배열 항목 함께 추가 한 후 `[1, 2]``[3, 4, 5]`와`[6, 7]`결과를 반환합니다
 
-## - 오르 기본 {# agg-functions-combinator-ordefault}
+## - OrDefault {# agg-functions-combinator-ordefault}
 
 집계 함수의 동작을 변경합니다.
 
@@ -111,11 +111,11 @@ FROM
 └───────────────────────────────────┘
 ```
 
-## - 오루누루 {# agg-functions-combinator-ornull}
+## - OrNull {# agg-functions-combinator-ornull}
 
 집계 함수의 동작을 변경합니다.
 
-이 연결자 집계 함수의 결과를 [Null 가능](../data-types/nullable.md) 데이터 형식입니다. 집계 함수 계산하는 값이없는 경우 다음 값이 반환됩니다 [NULL](../syntax.md #null-literal).
+이 연결자 집계 함수의 결과를 [Nullable](../data-types/nullable.md) 데이터 형식입니다. 집계 함수 계산하는 값이없는 경우 다음 값이 반환됩니다 [NULL](../syntax.md #null-literal).
 
 `-OrNull` 다른 조합 장치와 함께 사용될 수있다.
 
@@ -174,7 +174,7 @@ FROM
 └────────────────────────────────┘
 ```
 
-## - 리샘플링 {# agg-functions-combinator-resample}
+## - Resample {# agg-functions-combinator-resample}
 
 데이터를 그룹으로 분할하고, 그 그룹의 데이터를 개별적으로 집계 할 수 있습니다. 그룹은 열 값을 간격으로 분할하여 만들어집니다.
 
