@@ -31,7 +31,7 @@ toc_title : "\uBCF4\uC548 \uBCC0\uACBD \uB85C\uADF8"
 
 테이블 함수`url`이 취약점으로 인해 공격자는 요구에 임의의 HTTP 헤더를 삽입 할 수있었습니다. 
 
-신용 : [Nikita Tikhomirov] (https://github.com/NSTikhomirov) 
+신용 : [Nikita Tikhomirov](https://github.com/NSTikhomirov) 
 
 ## ClickHouse 출시 18.12.13,2018-09-10 수정되었습니다 {# fixed-in-clickhouse-release-18-12- 13-2018-09-10}
 
