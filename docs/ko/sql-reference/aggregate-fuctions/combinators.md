@@ -11,7 +11,7 @@ toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
 
 ## - 만약 {# agg-functions-combinator-if}
 
-The suffix -If can be appended to the name of any aggregate function. In this case, the aggregate function accepts an extra argument - a condition (Uint8 type) The aggregate function processes only the rows that trigger the condition. If the condition was not triggered even once, it returns a default value (usually zeros or empty strings).
+접미사 -If는 집계 함수의 이름에 추가 할 수 있습니다. 이 경우 집계 함수는 추가 인수 인 조건 (Uint8 유형)을 허용합니다. 집계 함수는 조건을 트리거하는 행만 처리합니다. 조건이 한 번도 트리거되지 않은 경우 기본값 (일반적으로 0 또는 빈 문자열)을 반환합니다.
 
 예 :`sumIf (column, cond)`,`countIf (cond)`,`avgIf (x, cond)`,`quantilesTimingIf (level1, level2) (x, cond)`,`argMinIf (arg, val, cond) `등.
 
@@ -33,11 +33,11 @@ The suffix -If can be appended to the name of any aggregate function. In this ca
 
 이들 국가는 이용 :
 
-- [AggregatingMergeTree (../../ engines / table-engines / mergetree-family / aggregatingmergetree.md) 테이블 엔진.
-- [finalizeAggregation (../../ sql-reference / functions / other-functions.md # function-finalizeaggregation) 기능.
-- [runningAccumulate (../../ sql-reference / functions / other-functions.md # function-runningaccumulate) 기능.
-- [- 병합 (# aggregate_functions_combinators-merge) 연결자 조치
-- [-MergeState (# aggregate_functions_combinators-mergestate) 연결자 조치
+- [AggregatingMergeTree](../../ engines / table-engines / mergetree-family / aggregatingmergetree.md) 테이블 엔진.
+- [finalizeAggregation](../../ sql-reference / functions / other-functions.md # function-finalizeaggregation) 기능.
+- [runningAccumulate](../../ sql-reference / functions / other-functions.md # function-runningaccumulate) 기능.
+- [- 병합](# aggregate_functions_combinators-merge) 연결자 조치
+- [-MergeState](# aggregate_functions_combinators-mergestate) 연결자 조치
 
 ## - 병합 {# aggregate_functions_combinators-merge}
 
@@ -187,7 +187,7 @@ FROM
 -`start` - Starting value of the whole required interval for`resampling_key` 값.
 -`stop` - Ending value of the whole required interval for`resampling_key` 값. 전체 구간은 포함되어 있지 않습니다`stop` 값`[start, stop)`.
 -`step` - Step for separating the whole interval into subintervals. The`aggFunction` 이러한 부분 구간의 각각에 대해 독립적으로 실행됩니다.
--`resampling_key` - Column whose values ​​are used for separating data into intervals.
+-`resampling_key` - Column whose values are used for separating data into intervals.
 -`aggFunction_params` -`aggFunction` 변수.
 
 ** 반환 값 **
@@ -211,7 +211,7 @@ FROM
 
 는 그 나이의 간격에있는 사람의 이름을 가져 봅시다`[30,60)`와`[60,75)`나이에 정수 표현을 사용하기 때문에 나이를 가져옵니다` [30, 59]`와`[60,74]`간격.
 
-배열의 이름을 집계하려면 [구루빠레이 (reference.md # agg_function-grouparray) 집계 함수. 그것은 하나의 인수를 취합니다. 우리의 경우, 그것은`name` 라인. 그`groupArrayResample` 함수는`age` 연령별로 이름을 집계하는 열. 필요한 간격을 정의하기 위해`30, 75, 30` 인수`groupArrayResample` 기능.
+배열의 이름을 집계하려면 [그룹 배열](reference.md #agg_function-grouparray) 집계 함수. 그것은 하나의 인수를 취합니다. 우리의 경우, 그것은`name` 라인. 그`groupArrayResample` 함수는`age` 연령별로 이름을 집계하는 열. 필요한 간격을 정의하기 위해`30, 75, 30` 인수`groupArrayResample` 기능.
 
 ```sql
 SELECT groupArrayResample (30, 75, 30) (name, age) FROM people
@@ -242,4 +242,4 @@ FROM people
 └────────┴───────────────────────────┘
 ```
 
-원본 기사 (https://clickhouse.tech/docs/en/query_language/agg_functions/combinators/) <! - hide ->
+[원본 기사](https://clickhouse.tech/docs/en/query_language/agg_functions/combinators/) <! - hide ->
