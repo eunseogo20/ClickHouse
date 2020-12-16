@@ -2,14 +2,14 @@
 machine_translated : true
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd
 toc_priority : 38
-toc_title : "\ u30D1 \ u30E9 \ u30E1 \ u30C8 \ u30EA \ u30C3 \ u30AF"
+toc_title : "\uD30C\uB77C \uBA54\uD2B8\uB9AD"
 ---
 
 # 파라 메트릭 집계 함수 {#aggregate_functions_parametric}
 
-Some aggregate functions can accept not only argument columns (used for compression), but a set of parameters - constants for initialization. The syntax is two pairs of brackets instead of one. The first is for parameters, and the second is for arguments.
+일부 집계 함수는 인수 열 (압축에 사용됨)뿐만 아니라 매개 변수 집합 (초기화를위한 상수)을 허용 할 수 있습니다. 구문은 하나가 아닌 두 쌍의 대괄호입니다. 첫 번째는 매개 변수 용이고 두 번째는 인수 용입니다.
 
-## 히스 {#histogram}
+## 히스토그램 {#histogram}
 
 적응 히스토그램을 계산합니다. 정확한 결과를 보장하는 것은 아닙니다.
 
@@ -17,16 +17,16 @@ Some aggregate functions can accept not only argument columns (used for compress
 histogram (number_of_bins) (values)
 ```
 
-함수는 다음을 사용합니다 [스트리밍] (http://jmlr.org/papers/volume11/ben-haim10a/ben-haim10a.pdf) 히스토그램 빈의 경계는 새로운 데이터가 함수에 들어가면 조정 있습니다. 일반적인 케이스에서는 빈의 폭은 동일하지 않습니다.
+함수는 다음을 사용합니다 [스트리밍 병렬 의사 결정 트리 알고리즘](http://jmlr.org/papers/volume11/ben-haim10a/ben-haim10a.pdf). 히스토그램 빈의 경계는 새로운 데이터가 함수에 들어가면 조정 있습니다. 일반적인 케이스에서는 빈의 폭은 동일하지 않습니다.
 
 ** 파라미터 **
 
-`number_of_bins` - Upper limit for the number of bins in the histogram. The function automatically calculates the number of bins. It tries to reach the specified number of bins, but if it fails, it uses fewer bins.
-`values` - 식 (../ syntax.md # syntax-expressions) 결과로 입력 값이 생성됩니다.
+`number_of_bins` - 히스토그램의 빈 수에 대한 상한입니다. 이 함수는 빈 수를 자동으로 계산합니다. 지정된 수의 빈에 도달하려고 시도하지만 실패하면 더 적은 수의 빈을 사용합니다.
+`values` - [표현](../ syntax.md # syntax-expressions) 결과로 입력 값이 생성됩니다.
 
 ** 반환 값 **
 
-- [배열] (../../ sql-reference / data-types / array.md)의 튜플 (../../ sql-reference / data-types / tuple.md) 다음과 같은 형식의 :
+- 튜플(../../ sql-reference / data-types / tuple.md)의 [배열](../../ sql-reference / data-types / array.md) 다음과 같은 형식0 :
 
         ```
         [(lower_1, upper_1, height_1) ... (lower_N, upper_N, height_N)
@@ -49,11 +49,11 @@ FROM (
 
 ```text
 ┌─histogram (5) (plus (number 1)) ──────────────────────────────────── ───────┐
-│ [(1,4.5,4) (4.5,8.5,4) (8.5,12.75,4.125) (12.75,17,4.625) (17,20,3.25) │
-└───────────────────────────────────────────────── ────────────────────────┘
+│ [(1,4.5,4) (4.5,8.5,4) (8.5,12.75,4.125) (12.75,17,4.625) (17,20,3.25)      │
+└───────────────────────────────────────────────── ───────────────────────────┘
 ```
 
-히스토그램을 시각화하려면 바 (../../ sql-reference / functions / other-functions.md # function-bar) 함수 예 :
+히스토그램을 시각화하려면 [바](../../sql-reference/functions/other-functions.md #function-bar) 함수 예 :
 
 ```sql
 WITH histogram (5) (rand () % 100) AS hist
@@ -70,11 +70,11 @@ FROM
 
 ```text
 ┌─height─┬─bar───┐
-│ 2.125 │ █▋ │
-│ 3.25 │ ██▌ │
+│ 2.125 │ █▋    │
+│ 3.25 │ ██▌     │
 │ 5.625 │ ████▏ │
 │ 5.625 │ ████▏ │
-│ 3.375 │ ██▌ │
+│ 3.375 │ ██▌    │
 └────────┴───────┘
 ```
 
@@ -93,9 +93,9 @@ sequenceMatch (pattern) (timestamp, cond1, cond2 ...)
 
 ** 파라미터 **
 
--`pattern` - Pattern string. See 패턴 구문 (# sequence-function-pattern-syntax).
+-`pattern` - Pattern string. See [패턴 구문](#sequence-function-pattern-syntax).
 
--`timestamp` - Column considered to contain time data. Typical data types are`Date`와`DateTime`.도 사용할 수 있습니다 대응 [UInt (../../ sql-reference / data-types / int- uint.md) 데이터 형식입니다.
+-`timestamp` - Column considered to contain time data. Typical data types are`Date`와`DateTime`.도 사용할 수 있습니다 대응 [UInt](../../sql-reference/data-types/int- uint.md) 데이터 형식입니다.
 
 -`cond1``cond2` - Conditions that describe the chain of events. Data type :`UInt8` 최대 32 개의 조건 인수를 전달할 수 있습니다. 이 함수는 이러한 조건에 설명되어있는 이벤트 만 고려합니다. 시퀀스에 조건으로 기술되지 않은 데이터가 포함되어있는 경우, 함수는 그들을 건너 뜁니다.
 
@@ -121,9 +121,9 @@ sequenceMatch (pattern) (timestamp, cond1, cond2 ...)
 
 ```text
 ┌─time─┬─number─┐
-│ 1 │ 1 │
-│ 2 │ 3 │
-│ 3 │ 2 │
+│ 1    │ 1      │
+│ 2    │ 3      │
+│ 3    │ 2      │
 └──────┴────────┘
 ```
 
@@ -135,8 +135,8 @@ SELECT sequenceMatch ( '(? 1) (? 2)') (time, number = 1, number = 2) FROM t
 
 ```text
 ┌─sequenceMatch ( '(? 1) (? 2)') (time, equals (number 1), equals (number 2)) ─┐
-│ 1 │
-└───────────────────────────────────────────────── ──────────────────────┘
+│                                                                            1 │
+└─────────────────────────────────────────────────────── ──────────────────────┘
 ```
 
 함수는 숫자 2가 번호 1에 이은 이벤트 체인을 발견했습니다. 번호는 이벤트로 기술되어 있지 않기 때문에, 그들 사이의 번호 3을 건너 뛰었습니다. 예제 주어진 이벤트 체인을 검색 할 때이 번호를 고려하고 있다면 그에 대한 조건을 작성해야합니다.
@@ -147,8 +147,8 @@ SELECT sequenceMatch ( '(? 1) (? 2)') (time, number = 1, number = 2, number = 3)
 
 ```text
 ┌─sequenceMatch ( '(? 1) (? 2)') (time, equals (number 1), equals (number 2), equals (number 3)) ─┐
-│ 0 │
-└───────────────────────────────────────────────── ─────────────────────────────────────────┘
+│                                                                                               0 │
+└───────────────────────────────────────────────── ───────────────────────────────────────────────┘
 ```
 
 이 경우 번호 3 이벤트가 1과 2 사이에서 발생했기 때문에 함수는 패턴과 일치하는 이벤트 체인을 찾을 수 없습니다. 같은 경우 4 번 조건을 체크 한 경우, 시퀀스는 패턴과 일치합니다.
@@ -159,13 +159,13 @@ SELECT sequenceMatch ( '(? 1) (? 2)') (time, number = 1, number = 2, number = 4)
 
 ```text
 ┌─sequenceMatch ( '(? 1) (? 2)') (time, equals (number 1), equals (number 2), equals (number 4)) ─┐
-│ 1 │
-└───────────────────────────────────────────────── ─────────────────────────────────────────┘
+│                                                                                               1 │
+└───────────────────────────────────────────────── ───────────────────────────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [시퀀스 카운트 (# function-sequencecount)
+- [시퀀스 카운트](# function-sequencecount)
 
 ## sequenceCount (pattern) (time, cond1, cond2 ...) {# function-sequencecount}
 
@@ -180,9 +180,9 @@ sequenceCount (pattern) (timestamp, cond1, cond2 ...)
 
 ** 파라미터 **
 
--`pattern` - Pattern string. See 패턴 구문 (# sequence-function-pattern-syntax).
+-`pattern` - Pattern string. See [패턴 구문](# sequence-function-pattern-syntax).
 
--`timestamp` - Column considered to contain time data. Typical data types are`Date`와`DateTime`.도 사용할 수 있습니다 대응 [UInt (../../ sql-reference / data-types / int- uint.md) 데이터 형식입니다.
+-`timestamp` - Column considered to contain time data. Typical data types are`Date`와`DateTime`.도 사용할 수 있습니다 대응 [UInt](../../sql-reference/data-types/int-uint.md) 데이터 형식입니다.
 
 -`cond1``cond2` - Conditions that describe the chain of events. Data type :`UInt8` 최대 32 개의 조건 인수를 전달할 수 있습니다. 이 함수는 이러한 조건에 설명되어있는 이벤트 만 고려합니다. 시퀀스에 조건으로 기술되지 않은 데이터가 포함되어있는 경우, 함수는 그들을 건너 뜁니다.
 
@@ -198,12 +198,12 @@ sequenceCount (pattern) (timestamp, cond1, cond2 ...)
 
 ```text
 ┌─time─┬─number─┐
-│ 1 │ 1 │
-│ 2 │ 3 │
-│ 3 │ 2 │
-│ 4 │ 1 │
-│ 5 │ 3 │
-│ 6 │ 2 │
+│ 1    │ 1      │
+│ 2    │ 3      │
+│ 3    │ 2      │
+│ 4    │ 1      │
+│ 5    │ 3      │
+│ 6    │ 2      │
 └──────┴────────┘
 ```
 
@@ -215,13 +215,13 @@ SELECT sequenceCount ( '(? 1) * (? 2)') (time, number = 1, number = 2) FROM t
 
 ```text
 ┌─sequenceCount ( '(? 1) * (? 2)') (time, equals (number 1), equals (number 2)) ─┐
-│ 2 │
-└───────────────────────────────────────────────── ────────────────────────┘
+│                                                                              2 │
+└───────────────────────────────────────────────── ──────────────────────────────┘
 ```
 
 ** 참고하십시오. **
 
-- [시퀀스 매칭 (# function-sequencematch)
+- [시퀀스 매치](# function-sequencematch)
 
 ## 창 판넬 {#windowfunnel}
 
@@ -246,8 +246,8 @@ windowFunnel (window [mode]) (timestamp, cond1, cond2, ..., condN)
 -`window` - Length of the sliding window in seconds.
 -`mode` -이 옵션의 인수입니다.
     -` 'strict'` - 때`'strict'` 설정되어있는 경우 windowFunnel ()는 고유 값에 대해서만 조건을 적용합니다.
--`timestamp` - Name of the column containing the timestamp. Data types supported : 날짜 (../../ sql-reference / data-types / date.md) [DateTime (../../ sql-reference / data-types / datetime.md # data_type-datetime) 기타 부호없는 정수 (timestamp가 지원에도 불구하고`UInt64` 값은 Int64 최대 값을 초과 할 수 없습니다 (2 ^ 63 -1).
--`cond` - Conditions or data describing the chain of events [UInt8 (../../ sql-reference / data-types / int-uint.md).
+-`timestamp` - Name of the column containing the timestamp. Data types supported : 날짜 (../../ sql-reference / data-types / date.md) [DateTime](../../sql-reference/data-types/datetime.md # data_type-datetime) 기타 부호없는 정수 (timestamp가 지원에도 불구하고`UInt64` 값은 Int64 최대 값을 초과 할 수 없습니다 (2 ^ 63 -1).
+-`cond` - Conditions or data describing the chain of events [UInt8](../../sql-reference/data-types/int-uint.md).
 
 ** 반환 값 **
 
@@ -271,17 +271,17 @@ windowFunnel (window [mode]) (timestamp, cond1, cond2, ..., condN)
 
 ```text
 ┌─event_date─┬─user_id─┬───────────timestamp─┬─eventID─┬─product─┐
-│ 2019-01-28 │ 1 │ 2019-01-29 10:00:00 │ 1003 │ phone │
-└────────────┴─────────┴─────────────────────┴──── ─────┴─────────┘
+│ 2019-01-28 │       1 │ 2019-01-29 10:00:00 │    1003 │ phone   │
+└────────────┴─────────┴─────────────────────┴─────────┴─────────┘
 ┌─event_date─┬─user_id─┬───────────timestamp─┬─eventID─┬─product─┐
-│ 2019-01-31 │ 1 │ 2019-01-31 09:00:00 │ 1007 │ phone │
-└────────────┴─────────┴─────────────────────┴──── ─────┴─────────┘
+│ 2019-01-31 │ 1       │ 2019-01-31 09:00:00 │    1007 │ phone   │
+└────────────┴─────────┴─────────────────────┴─────────┴─────────┘
 ┌─event_date─┬─user_id─┬───────────timestamp─┬─eventID─┬─product─┐
-│ 2019-01-30 │ 1 │ 2019-01-30 08:00:00 │ 1009 │ phone │
-└────────────┴─────────┴─────────────────────┴──── ─────┴─────────┘
+│ 2019-01-30 │ 1       │ 2019-01-30 08:00:00 │    1009 │ phone   │
+└────────────┴─────────┴─────────────────────┴─────────┴─────────┘
 ┌─event_date─┬─user_id─┬───────────timestamp─┬─eventID─┬─product─┐
-│ 2019-02-01 │ 1 │ 2019-02-01 08:00:00 │ 1010 │ phone │
-└────────────┴─────────┴─────────────────────┴──── ─────┴─────────┘
+│ 2019-02-01 │ 1       │ 2019-02-01 08:00:00 │    1010 │ phone   │
+└────────────┴─────────┴─────────────────────┴─────────┴─────────┘
 ```
 
 사용자의 거리를 조사`user_id` 2019 년에 체인을 빠져 나갈 수 있었다.
@@ -309,7 +309,7 @@ ORDER BY level ASC
 
 ```text
 ┌─level─┬─c─┐
-│ 4 │ 1 │
+│     4 │ 1 │
 └───────┴───┘
 ```
 
@@ -365,40 +365,40 @@ SELECT * FROM retention_test
 
 ```text
 ┌───────date─┬─uid─┐
-│ 2020-01-01 │ 0 │
-│ 2020-01-01 │ 1 │
-│ 2020-01-01 │ 2 │
-│ 2020-01-01 │ 3 │
-│ 2020-01-01 │ 4 │
+│ 2020-01-01 │   0 │
+│ 2020-01-01 │   1 │
+│ 2020-01-01 │   2 │
+│ 2020-01-01 │   3 │
+│ 2020-01-01 │   4 │
 └────────────┴─────┘
 ┌───────date─┬─uid─┐
-│ 2020-01-02 │ 0 │
-│ 2020-01-02 │ 1 │
-│ 2020-01-02 │ 2 │
-│ 2020-01-02 │ 3 │
-│ 2020-01-02 │ 4 │
-│ 2020-01-02 │ 5 │
-│ 2020-01-02 │ 6 │
-│ 2020-01-02 │ 7 │
-│ 2020-01-02 │ 8 │
-│ 2020-01-02 │ 9 │
+│ 2020-01-02 │   0 │
+│ 2020-01-02 │   1 │
+│ 2020-01-02 │   2 │
+│ 2020-01-02 │   3 │
+│ 2020-01-02 │   4 │
+│ 2020-01-02 │   5 │
+│ 2020-01-02 │   6 │
+│ 2020-01-02 │   7 │
+│ 2020-01-02 │   8 │
+│ 2020-01-02 │   9 │
 └────────────┴─────┘
 ┌───────date─┬─uid─┐
-│ 2020-01-03 │ 0 │
-│ 2020-01-03 │ 1 │
-│ 2020-01-03 │ 2 │
-│ 2020-01-03 │ 3 │
-│ 2020-01-03 │ 4 │
-│ 2020-01-03 │ 5 │
-│ 2020-01-03 │ 6 │
-│ 2020-01-03 │ 7 │
-│ 2020-01-03 │ 8 │
-│ 2020-01-03 │ 9 │
-│ 2020-01-03 │ 10 │
-│ 2020-01-03 │ 11 │
-│ 2020-01-03 │ 12 │
-│ 2020-01-03 │ 13 │
-│ 2020-01-03 │ 14 │
+│ 2020-01-03 │   0 │
+│ 2020-01-03 │   1 │
+│ 2020-01-03 │   2 │
+│ 2020-01-03 │   3 │
+│ 2020-01-03 │   4 │
+│ 2020-01-03 │   5 │
+│ 2020-01-03 │   6 │
+│ 2020-01-03 │   7 │
+│ 2020-01-03 │   8 │
+│ 2020-01-03 │   9 │
+│ 2020-01-03 │  10 │
+│ 2020-01-03 │  11 │
+│ 2020-01-03 │  12 │
+│ 2020-01-03 │  13 │
+│ 2020-01-03 │  14 │
 └────────────┴─────┘
 ```
 
@@ -420,21 +420,21 @@ ORDER BY uid ASC
 
 ```text
 ┌─uid─┬─r───────┐
-│ 0 │ [1,1,1] │
-│ 1 │ [1,1,1] │
-│ 2 │ [1,1,1] │
-│ 3 │ [1,1,1] │
-│ 4 │ [1,1,1] │
-│ 5 │ [0,0,0] │
-│ 6 │ [0,0,0] │
-│ 7 │ [0,0,0] │
-│ 8 │ [0,0,0] │
-│ 9 │ [0,0,0] │
-│ 10 │ [0,0,0] │
-│ 11 │ [0,0,0] │
-│ 12 │ [0,0,0] │
-│ 13 │ [0,0,0] │
-│ 14 │ [0,0,0] │
+│   0 │ [1,1,1] │
+│   1 │ [1,1,1] │
+│   2 │ [1,1,1] │
+│   3 │ [1,1,1] │
+│   4 │ [1,1,1] │
+│   5 │ [0,0,0] │
+│   6 │ [0,0,0] │
+│   7 │ [0,0,0] │
+│   8 │ [0,0,0] │
+│   9 │ [0,0,0] │
+│  10 │ [0,0,0] │
+│  11 │ [0,0,0] │
+│  12 │ [0,0,0] │
+│  13 │ [0,0,0] │
+│  14 │ [0,0,0] │
 └─────┴─────────┘
 ```
 
@@ -462,7 +462,7 @@ FROM
 
 ```text
 ┌─r1─┬─r2─┬─r3─┐
-│ 5 │ 5 │ 5 │
+│  5 │  5 │  5 │
 └────┴────┴────┘
 ```
 
@@ -492,8 +492,8 @@ Problem : Generate a report that shows only keywords that produced at least 5 un
 Solution : Write in the GROUP BY query SearchPhrase HAVING uniqUpTo (4) (UserID)> = 5
 ```
 
-원본 기사 (https://clickhouse.tech/docs/en/query_language/agg_functions/parametric_functions/) <! - hide ->
+[원본 기사](https://clickhouse.tech/docs/en/query_language/agg_functions/parametric_functions/) <! - hide ->
 
 ## sumMapFiltered (keys_to_keep) (키, 값) {# summapfilteredkeys-to-keepkeys-values}
 
-같은 동작 [사맛뿌 (reference.md # agg_functions-summap) 그러나 키의 배열은 매개 변수로 전달됩니다. 이것은 키의 기수가 높은 경우에 특히 유용합니다.
+같은 동작 [서브맵](reference.md # agg_functions-summap) 그러나 키의 배열은 매개 변수로 전달됩니다. 이것은 키의 기수가 높은 경우에 특히 유용합니다.
