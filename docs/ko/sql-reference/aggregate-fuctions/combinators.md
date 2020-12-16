@@ -2,7 +2,7 @@
 machine_translated : true
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd
 toc_priority : 37
-toc_title : "\ u30B3 \ u30F3 \ u30D3 \ u30CD \ u30FC \ u30BF"
+toc_title : "\uACB0\uD569\uAE30"
 ---
 
 # 집계 함수 연결자 {#aggregate_functions_combinators}
