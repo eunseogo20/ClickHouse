@@ -1,7 +1,7 @@
 --- 
 machine_translated : true 
 machine_translated_rev : 72537a2d527c63c07aa5d2361a8829f3895cf2bd 
-toc_folder_title : "\ u96C6 \ u8A08 \ u95A2 \ u6570" 
+toc_folder_title : "\uC9D1\uACC4 \uD568\uC218" 
 toc_priority : 33 
 toc_title : "\uC18C\uAC1C" 
 --- 
@@ -25,10 +25,10 @@ ClickHouse 또한 지원합니다 :
 
 ```text 
 ┌─x─┬────y─┐ 
-│ 1 │ 2 │ 
+│ 1 │ 2    │ 
 │ 2 │ ᴺᵁᴸᴸ │ 
-│ 3 │ 2 │ 
-│ 3 │ 3 │ 
+│ 3 │ 2    │ 
+│ 3 │ 3    │ 
 │ 3 │ ᴺᵁᴸᴸ │ 
 └───┴──────┘ 
 ``` 
@@ -40,8 +40,8 @@ SELECT sum (y) FROM t_null_big
 ``` 
 
     ┌─sum (y) ─┐ 
-    │ 7 │ 
-    └────────┘ 
+    │ 7        │ 
+    └──────────┘ 
 
 그`sum` 함수 해석합니다` NULL`로`0` 특히 이것은 함수가 모든 값이 다음과 같은 선택 범위의 입력을받은 경우`NULL` 결과는 다음과 같습니다`0`없는`NULL`. 
 
@@ -53,8 +53,8 @@ SELECT groupArray (y) FROM t_null_big
 
 ```text 
 ┌─groupArray (y) ─┐ 
-│ [2 2,3] │ 
-└───────────────┘ 
+│ [2 2,3]         │ 
+└─────────────────┘ 
 ``` 
 
 `groupArray`은 포함하지 않는`NULL` 결과의 배열.
