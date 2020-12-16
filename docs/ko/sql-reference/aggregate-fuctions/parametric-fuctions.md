@@ -22,11 +22,11 @@ histogram (number_of_bins) (values)
 ** 파라미터 **
 
 `number_of_bins` - 히스토그램의 빈 수에 대한 상한입니다. 이 함수는 빈 수를 자동으로 계산합니다. 지정된 수의 빈에 도달하려고 시도하지만 실패하면 더 적은 수의 빈을 사용합니다.
-`values` - [표현](../ syntax.md # syntax-expressions) 결과로 입력 값이 생성됩니다.
+`values` - [표현](../syntax.md # syntax-expressions) 결과로 입력 값이 생성됩니다.
 
 ** 반환 값 **
 
-- 튜플(../../ sql-reference / data-types / tuple.md)의 [배열](../../ sql-reference / data-types / array.md) 다음과 같은 형식0 :
+- 튜플(../../ sql-reference / data-types / tuple.md)의 [배열](../../sql-reference/data-types/array.md) 다음과 같은 형식0 :
 
         ```
         [(lower_1, upper_1, height_1) ... (lower_N, upper_N, height_N)
