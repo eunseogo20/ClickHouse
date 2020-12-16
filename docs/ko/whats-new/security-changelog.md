@@ -9,13 +9,13 @@ toc_title : "\uBCF4\uC548 \uBCC0\uACBD \uB85C\uADF8"
 
 ### CVE-2019-15024 {# cve-2019-15024} 
 
-Аn attacker that has write access to ZooKeeper and who ican run a custom server available from the network where ClickHouse runs , can create a custom-built malicious server that will act as a ClickHouse replica and register it in ZooKeeper . When another replica will fetch data part from the malicious replica , it can force clickhouse-server to write to arbitrary path on filesystem.
+ZooKeeper에 대한 쓰기 권한이 있고 ClickHouse가 실행되는 네트워크에서 사용 가능한 사용자 지정 서버를 실행하는 공격자는 ClickHouse 복제본 역할을하는 사용자 지정 구축 악성 서버를 만들어 ZooKeeper에 등록 할 수 있습니다. 다른 복제본이 악성 복제본에서 데이터 부분을 가져 오면 클릭 하우스 서버가 파일 시스템의 임의 경로에 쓰도록 할 수 있습니다.
 
 신용 : Yandex 정보 보안 팀의 Eldar Zaitov 
 
 ### CVE-2019-16535 {# cve-2019-16535} 
 
-Аn OOB read, OOB write and integer underflow in decompression algorithms can be used to achieve RCE or DoS via native protocol . 
+압축 해제 알고리즘의 OOB 읽기, OOB 쓰기 및 정수 언더 플로를 사용하여 기본 프로토콜을 통해 RCE 또는 DoS를 달성 할 수 있습니다. 
 
 신용 : Yandex 정보 보안 팀의 Eldar Zaitov 
 
