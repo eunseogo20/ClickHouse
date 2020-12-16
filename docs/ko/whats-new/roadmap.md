@@ -16,4 +16,4 @@ toc_title : "\uB85C\uB4DC\uB9F5"
 - 외부 인증 서비스와의 통합 
 - 자원 풀에 대한보다 정밀한 분포의 클러스터 기능 및 사용자 
 
-{## [원 기사](https://clickhouse.tech/docs/en/roadmap/) ##}
+{## [원본 기사](https://clickhouse.tech/docs/en/roadmap/) ##}
