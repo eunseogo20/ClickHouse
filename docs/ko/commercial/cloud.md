@@ -7,7 +7,7 @@ toc_title: "\uD074\uB77C\uC6B0\uB4DC"
 
 # ClickHouse Cloud 서비스 제공 업체 {#clickhouse-cloud-service-providers}
 
-!!! info ""
+!!! info "정보"
     만약 관리형 ClickHouse 서비스로 공공 클라우드를 시작한 경우 자유롭게 [pull-request](https://github.com/ClickHouse/ClickHouse/edit/master/docs/en/commercial/cloud.md)를 열어 다음 목록에 추가하십시오.
 
 ## Yandex Cloud {#yandex-cloud}
